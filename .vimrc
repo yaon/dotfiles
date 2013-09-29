@@ -1,5 +1,8 @@
-" {{{ Vim options
+" Install
+" !git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
+" :BundleInstall
 
+" {{{ Vim options
 " Disable vi compatibility
 set nocompatible
 
@@ -22,7 +25,6 @@ set hidden
 
 " }}}
 " Plugins {{{
-" Do :BundleInstall to install plugins
 
 filetype off
 set rtp+=~/.vim/bundle/vundle/
@@ -73,16 +75,17 @@ set wildignorecase
 " Leaving insert mode instantly
 set ttimeout
 set ttimeoutlen=1
+
 " }}}
 " {{{ Other
 
-" '/' options
+" Amazing '/'
 set hlsearch
 set smartcase
 set incsearch
 set ignorecase
 
-" Folds
+" Magnificient folds
 set foldenable
 set foldlevel=99
 set foldlevelstart=0
@@ -159,7 +162,7 @@ set colorcolumn=+1
 
 " Highlight cursor line
 set cursorline
-
+"
 " Enable 256 color terminal
 set t_Co=256
 
@@ -193,7 +196,7 @@ map <S-Insert> <MiddleMouse>
 map! <S-Insert> <MiddleMouse>
 
 " Stop highlighting search
-map <C-C> :nohlsearch<CR>
+map <C-C> :nohlsearch<ii>
 
 " Gold
 noremap ; :
@@ -206,7 +209,7 @@ noremap <leader>m :silent! :make -j4 \| :redraw! \| :botright :cw<cr>
 "nmap <F5> I//<Esc>j
 
 " Clean dirty disgusting pig stuff
-map <leader>cl :retab<cr>gg=G<cr>:%s/[\r \t]\+$//<cr>
+map <leader>ric :retab<cr>gg=G<cr>:%s/[\r \t]\+$//<cr>
 
 " Nerdtree
 noremap <leader>nt :NERDTreeToggle<cr>

@@ -6,6 +6,7 @@ setopt glob_dots
 setopt EXTENDED_GLOB
 setopt extendedglob
 unsetopt beep #beep!
+unsetopt no_match #should make apt-get globbing work
 
 # Use emacs keybindings even if our EDITOR is set to vi
 bindkey -e
@@ -54,7 +55,6 @@ export WORDCHARS=''
 ## univ
 alias ls='ls --color=auto'
 alias grep='grep --color=auto'
-alias bcm='./bootstrap && ./configure && make'
 alias valgrind='valgrind -v --leak-check=full --show-reachable=yes\
  --track-fds=yes --track-origins=yes --malloc-fill=42 --free-fill=43'
 alias ll='ls -l'
@@ -70,10 +70,10 @@ alias lsh='ls *(.)' # ls hidden files
 alias lsf='ls *~*.*(.)' # ls files
 alias lsd='ls -d */' # ls folder
 alias -g ND='*(/om[1])' # newest directory
-alias -g NF='*(.om[1])' # newest file
+alias -g NF='*(.om[1])' # newest file FIXME: allways .histfile ...
 alias lsL='ls -hlS **/*(.Lm+2)  | less' # list largest files  largest first  *N*
-#alias -g G="| grep" #fuck this
-#alias -g L="| less" #and that
+alias -g G="| grep" #fuck this
+alias -g L="| less" #and that
 
 alias gls='git log --stat'
 alias glr='git log --raw'
@@ -85,20 +85,23 @@ alias glp='git log -p'
 alias repof='sudo reboot'
 alias pof='sudo poweroff'
 alias pozzerio='sudo poweroff'
-function cl { cd $1 && ls }
+function cl { cd $1 && ls } #kinda disgusting
+function mkcd() { mkdir -p $1; cd $1 }
 function light { xbacklight -set $1 }
 function sagi { sudo apt-get -y install $1 } #1
 alias mkc='~/tools/./mkc.sh'
 alias mkcc='~/tools/./mkcc.sh'
-function mkcd() { mkdir -p $1; cd $1 }
 alias mkhx='~/tools/./mkhx.sh'
 alias kj='killall java'
 alias goo='chromium-browser &'
 alias kgs='javaws http://files.gokgs.com/javaBin/cgoban.jnlp'
 alias zr='vim ~/.zshrc'
 alias vr='vim ~/.vimrc'
+function MINE { sudo chown -R $USER $1; } #1 too
 
 #dompter le tigre
+alias bcm='./bootstrap && ./configure && make -j4'
+alias cm='./configure && make -j4'
 alias mk='make -j4 &'
 alias st='git status | head -n 25'
 alias mh='make -j4 2> /tmp/mh; cat /tmp/mh | head -n 25'
@@ -115,20 +118,25 @@ alias ..2='cd ../..'
 alias ..3='cd ../../..'
 alias sou='source ~/.zshrc'
 
-#stage
+# stage
 alias -g SC="~/script/"
 alias -g PR="~/php/"
-alias cdp='cd /home/vide/php'
+alias cdp='cd /home/yaon/vide'
 alias cds='cd /home/vide/script'
 alias cdd='cd ~/Downloads'
 alias debugApache='sudo tail -f /var/log/apache2/error.log'
-alias uploadToServ='cd ~/php; scp -r ^.* 192.168.1.2:/var/www/'
+alias uploadToServ='cd ~/vide; scp -r ^.* vide@192.168.1.2:/var/www/'
+alias -g P1='vide@192.168.1.2'
+alias -g P2='vide@192.168.1.3'
+alias -g P3='vide@192.168.1.4'
+alias -g MP='vide@192.168.1.23'
 
-# home
+# mine
 alias cda='cd /home/yaon/aureole'
 alias py='python3.2'
-
 alias suj='evince ~/dev/suj.pdf &'
 alias sli='evince ~/dev/sli.pdf &'
+
+#cool
 alias shit='ls -shit'
 # }}}
