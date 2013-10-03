@@ -43,7 +43,7 @@ zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
 setxkbmap us
 
 # Exports
-local prompt="%(?,%{$fg[green]%}%%%{$reset_color%},%{$fg[red]%}#%{$reset_color%})"
+local prompt="vm %(?,%{$fg[green]%}%%%{$reset_color%},%{$fg[red]%}#%{$reset_color%})"
 PROMPT="$prompt "
 export RPROMPT=''
 export PAGER='less'
@@ -98,6 +98,7 @@ alias kgs='javaws http://files.gokgs.com/javaBin/cgoban.jnlp'
 alias zr='vim ~/.zshrc'
 alias vr='vim ~/.vimrc'
 function MINE { sudo chown -R $USER $1; } #1 too
+manopt(){ man $1 |sed 's/.\x08//g'|sed -n "/^\s\+-\+$2\b/,/^\s*$/p"|sed '$d;';} 
 
 #dompter le tigre
 alias bcm='./bootstrap && ./configure && make -j4'
@@ -117,6 +118,8 @@ alias ..1='cd ..'
 alias ..2='cd ../..'
 alias ..3='cd ../../..'
 alias sou='source ~/.zshrc'
+alias age='echo $(( $(( $( date +%s ) - $( date -d "1991-23-09" +%s ) )) / 86400 ))'
+rainbow(){ for i in {1..7}; do tput setaf $i; echo $@; tput sgr0; done; } 
 
 # stage
 alias -g SC="~/script/"
@@ -125,11 +128,30 @@ alias cdp='cd /home/yaon/vide'
 alias cds='cd /home/vide/script'
 alias cdd='cd ~/Downloads'
 alias debugApache='sudo tail -f /var/log/apache2/error.log'
+alias dbApache='sudo scp 192.168.1.2:/var/log/apache2 /tmp/; less /tmp/apache2'
 alias uploadToServ='cd ~/vide; scp -r ^.* vide@192.168.1.2:/var/www/'
 alias -g P1='vide@192.168.1.2'
 alias -g P2='vide@192.168.1.3'
 alias -g P3='vide@192.168.1.4'
 alias -g MP='vide@192.168.1.23'
+alias -g PI='pi@192.168.1.30'
+alias -g MS='vide@192.168.1.100'
+
+# piwall
+function piwall
+{
+    if [ $# -eq 0 ]; then
+        pwomxplayer udp://239.0.1.23:1234?buffer_size=1200000B
+    else
+        pwomxplayer --tile-code=$1 udp://239.0.1.23:1234?buffer_size=1200000B
+    fi
+}
+function piwall_master
+{
+    while true; do
+        avconv -re -i $1 -vcodec copy -an -f avi udp://239.0.1.23:1234
+    done
+}
 
 # mine
 alias cda='cd /home/yaon/aureole'
@@ -139,4 +161,6 @@ alias sli='evince ~/dev/sli.pdf &'
 
 #cool
 alias shit='ls -shit'
+alias tmux="TERM=screen-256color-bce tmux"
 # }}}
+

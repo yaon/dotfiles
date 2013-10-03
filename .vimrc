@@ -196,7 +196,7 @@ map <S-Insert> <MiddleMouse>
 map! <S-Insert> <MiddleMouse>
 
 " Stop highlighting search
-map <C-C> :nohlsearch<ii>
+map <C-C> :nohlsearch<cr>
 
 " Gold
 noremap ; :
