@@ -7,7 +7,7 @@ then
 fi
 
 mkdir transcode
-targetFolder="/media/sf_Jim/encode"
+targetFolder="."
 mkdir -p $targetFolder
 input=$1;
 

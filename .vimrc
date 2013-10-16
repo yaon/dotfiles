@@ -166,9 +166,13 @@ set cursorline
 " Enable 256 color terminal
 set t_Co=256
 
-" :>
+" nice colorscheme
 colorscheme jellybeans
 
+" }}}
+" {{{ syntax
+au BufRead,BufNewFile *.pde set filetype=arduino
+au BufRead,BufNewFile *.ino set filetype=arduino
 " }}}
 " {{{ Functions
 
@@ -202,7 +206,8 @@ map <C-C> :nohlsearch<cr>
 noremap ; :
 
 " Dompter le tigre
-noremap <leader>m :silent! :make -j4 \| :redraw! \| :botright :cw<cr>
+noremap <leader>ms :silent! :make -j4 \| :redraw! \| :botright :cw<cr>
+noremap <leader>mk :make<cr>
 
 " Comment
 "nmap <F6> ^2xj
@@ -226,7 +231,9 @@ noremap <leader>l :vertical resize -2<cr>
 " Paste mode
 noremap <leader>pa :setlocal paste!<cr>
 
-" Rename current file ;D
+map <leader>xx :!%:p<cr>
+
+" Rename current file
 map <Leader>n :call RenameFile()<cr>
 
 " }}}

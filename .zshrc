@@ -39,9 +39,6 @@ zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
 
 # }}}
 
-# because why the fuck not here
-setxkbmap us
-
 # Exports
 local prompt="vm %(?,%{$fg[green]%}%%%{$reset_color%},%{$fg[red]%}#%{$reset_color%})"
 PROMPT="$prompt "
@@ -52,6 +49,9 @@ export EDITOR='vim'
 export WORDCHARS=''
 
 # {{{ Aliases
+
+# because why the fuck not here
+setxkbmap us
 ## univ
 alias ls='ls --color=auto'
 alias grep='grep --color=auto'
@@ -89,9 +89,6 @@ function cl { cd $1 && ls } #kinda disgusting
 function mkcd() { mkdir -p $1; cd $1 }
 function light { xbacklight -set $1 }
 function sagi { sudo apt-get -y install $1 } #1
-alias mkc='~/tools/./mkc.sh'
-alias mkcc='~/tools/./mkcc.sh'
-alias mkhx='~/tools/./mkhx.sh'
 alias kj='killall java'
 alias goo='chromium-browser &'
 alias kgs='javaws http://files.gokgs.com/javaBin/cgoban.jnlp'
@@ -99,6 +96,7 @@ alias zr='vim ~/.zshrc'
 alias vr='vim ~/.vimrc'
 function MINE { sudo chown -R $USER $1; } #1 too
 manopt(){ man $1 |sed 's/.\x08//g'|sed -n "/^\s\+-\+$2\b/,/^\s*$/p"|sed '$d;';} 
+alias reconfig='kill -s USR2 `xprop -root _BLACKBOX_PID | awk '"'"'{print $3}'"'"'`'
 
 #dompter le tigre
 alias bcm='./bootstrap && ./configure && make -j4'
@@ -109,6 +107,7 @@ alias mh='make -j4 2> /tmp/mh; cat /tmp/mh | head -n 25'
 
 ## advanced syntax correction
 alias gf='fg'
+alias sv='sudo vim'
 alias v='vim'
 alias jim='vim'
 alias bim='vim'
@@ -118,8 +117,10 @@ alias ..1='cd ..'
 alias ..2='cd ../..'
 alias ..3='cd ../../..'
 alias sou='source ~/.zshrc'
-alias age='echo $(( $(( $( date +%s ) - $( date -d "1991-23-09" +%s ) )) / 86400 ))'
+alias age='echo $(( $(( $( date +%s ) - $( date -d "1991-09-23" +%s ) )) / 86400 / 365))'
 rainbow(){ for i in {1..7}; do tput setaf $i; echo $@; tput sgr0; done; } 
+lucky(){ awk -varg=^$1 '$0~arg' .histzsh | shuf | head -1; }
+
 
 # stage
 alias -g SC="~/script/"
@@ -134,10 +135,32 @@ alias -g P1='vide@192.168.1.2'
 alias -g P2='vide@192.168.1.3'
 alias -g P3='vide@192.168.1.4'
 alias -g MP='vide@192.168.1.23'
-alias -g PI='pi@192.168.1.30'
 alias -g MS='vide@192.168.1.100'
 
-# piwall
+# mine
+alias cda='cd /home/yaon/aureole'
+alias suj='evince ~/dev/suj.pdf &'
+alias sli='evince ~/dev/sli.pdf &'
+alias -g PI='pi@192.168.0.46'
+
+# python
+alias py='python3.2'
+alias tree='tree -I __pycache__'
+
+#cool
+alias shit='ls -shit'
+alias tmux="TERM=screen-256color-bce tmux"
+# }}}
+
+# {{{ no scripts aloud
+# {{{ ttv
+function ttv
+{
+    sshpass -p ediv scp -r /var/www/py/toggleTv.py vide@192.168.1.2:/var/www/py/
+    sshpass -p ediv ssh vide@192.168.1.2 "/var/www/py/toggleTv.py $1"
+}
+# }}}
+# {{{ piwall
 function piwall
 {
     if [ $# -eq 0 ]; then
@@ -146,21 +169,86 @@ function piwall
         pwomxplayer --tile-code=$1 udp://239.0.1.23:1234?buffer_size=1200000B
     fi
 }
+# }}}
+# {{{ piwall_master video
 function piwall_master
 {
     while true; do
         avconv -re -i $1 -vcodec copy -an -f avi udp://239.0.1.23:1234
     done
 }
-
-# mine
-alias cda='cd /home/yaon/aureole'
-alias py='python3.2'
-alias suj='evince ~/dev/suj.pdf &'
-alias sli='evince ~/dev/sli.pdf &'
-
-#cool
-alias shit='ls -shit'
-alias tmux="TERM=screen-256color-bce tmux"
 # }}}
+# {{{ piEncode in out
+function piEncode
+{
+    mencoder $1 -o $2 -oac copy -ovc lavc -lavcopts vcodec=mpeg1video -of mpeg
+}
+# }}}
+# {{{ mkc
+function mkc
+{
+    touch $1.c
+    touch $1.h
 
+    chmod 640 $1.c
+    chmod 640 $1.h
+
+    CAPS=`echo $1 | tr [a-z] [A-Z]`
+
+    echo "#ifndef $CAPS"_H_ >> $1.h
+    echo "# define $CAPS"_H_ >> $1.h
+    echo >> $1.h
+    echo >> $1.h
+    echo >> $1.h
+    echo "#endif /* !$CAPS""_H_ */" >> $1.h
+    echo "#include \"$1.h\"" >> $1.c
+} # }}}
+#{{{ mkcc
+function mkcc
+{
+    touch $1.cc
+    touch $1.hh
+
+    chmod 640 $1.cc
+    chmod 640 $1.hh
+
+    CAPS=`echo $1 | tr [a-z-] [A-Z_]`
+    #Class=`echo ${1:0:1} | tr [a-z] [A-Z]`
+    echo "#ifndef $CAPS"_HH_ >> $1.hh
+    echo "# define $CAPS"_HH_ >> $1.hh
+    echo >> $1.hh
+    echo >> $1.hh
+    echo >> $1.hh
+    echo "#endif /* !$CAPS""_HH_ */" >> $1.hh
+
+    echo "#include \"$1.hh\"" >> $1.cc
+} #}}}
+# {{{ mkhx
+function mkhx
+{
+    touch $1.hxx
+    touch $1.hh
+
+    chmod 640 $1.hxx
+    chmod 640 $1.hh
+
+    CAPS=`echo $1 | tr [a-z-] [A-Z_]`
+
+    echo "#ifndef $CAPS"_HH_ >> $1.hh
+    echo "# define $CAPS"_HH_ >> $1.hh
+    echo >> $1.hh
+    echo >> $1.hh
+    echo >> $1.hh
+    echo "# include \"$1.hxx\"" >> $1.hh
+    echo "#endif /* !$CAPS""_HH_ */" >> $1.hh
+
+
+    echo "#ifndef $CAPS"_HXX_ >> $1.hxx
+    echo "# define $CAPS"_HXX_ >> $1.hxx
+    echo "# include \"$1.hh\"" >> $1.hxx
+    echo >> $1.hxx
+    echo >> $1.hxx
+    echo >> $1.hxx
+    echo "#endif /* !$CAPS""_HXX_ */" >> $1.hxx
+} # }}}
+# }}}
