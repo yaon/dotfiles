@@ -20,8 +20,27 @@ set autowrite
 set nobackup
 set noswapfile
 
+" Remember info about open buffers on close
+set viminfo^=%
+
 " Keep unsaved buffers
 set hidden
+
+" include colon in filenames (for gf)
+set isfname+=:
+
+" Return to last edit position when opening files (You want this!)
+autocmd BufReadPost *
+    \ if line("'\"") > 0 && line("'\"") <= line("$") |
+    \   exe "normal! g`\"" |
+    \ endif
+
+" Keep undo history after closing vim/buffer
+try
+    set undodir=~/.vim/tmp/undodir
+    set undofile
+catch
+endtry 
 
 " }}}
 " Plugins {{{
@@ -31,11 +50,31 @@ set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 
 Bundle 'gmarik/vundle'
+
+" Explore files
 Bundle 'scrooloose/nerdtree'
+
+" Easy commenting
 Bundle 'scrooloose/nerdcommenter'
+
+" Syntax check on save
 Bundle 'scrooloose/syntastic'
+
+" Great status line
 Bundle 'Lokaltog/vim-powerline'
+
+" Color scheme
 Bundle 'nanotech/jellybeans.vim'
+
+" Press + to expand the visual selection and _ to shrink it.
+Bundle 'terryma/vim-expand-region'
+
+" yank history
+Bundle 'vim-scripts/YankRing.vim'
+
+" TODO
+"Bundle 'vim-scripts/taglist.vim'
+"Bundle 'mattn/emmet-vim'
 
 filetype plugin on
 filetype plugin indent on
@@ -45,6 +84,8 @@ syntax on
 " Plugin options
 let g:jellybeans_background_color_256='256'
 let g:syntastic_cpp_compiler_options = ' -std=c++0x'
+let g:user_emmet_install_global = 0
+autocmd FileType html,css EmmetInstall
 
 " }}}
 " {{{ Bottom things
@@ -70,6 +111,7 @@ set gdefault
 " Completion for commands
 set wildmenu
 set wildmode=list,full
+set wildignore=*.o,*~,*.pyc
 set wildignorecase
 
 " Leaving insert mode instantly
@@ -91,7 +133,7 @@ set foldlevel=99
 set foldlevelstart=0
 set foldmethod=marker
 
-" Don't
+" This is not here
 set mouse=ar
 set mousemodel=extend
 set mousefocus
@@ -136,6 +178,15 @@ set scrolloff=5
 
 " Motion stuff
 set whichwrap=b,s,l,h,<,>,[,]
+
+" Delte trailing whitespaces on save
+func! DeleteTrailingWS()
+    exe "normal mz"
+    %s/\s\+$//ge
+    exe "normal `z"
+endfunc
+autocmd BufWrite *.py :call DeleteTrailingWS()
+
 " }}}
 " {{{ Prettify
 
@@ -166,6 +217,9 @@ set cursorline
 " Enable 256 color terminal
 set t_Co=256
 
+" Show matching brackets when text indicator is over them
+set showmatch
+
 " nice colorscheme
 colorscheme jellybeans
 
@@ -186,10 +240,62 @@ function! RenameFile()
     endif
 endfunction
 
+function! VisualSelection(direction) range
+    let l:saved_reg = @"
+    execute "normal! vgvy"
+
+    let l:pattern = escape(@", '\\/.*$^~[]')
+    let l:pattern = substitute(l:pattern, "\n$", "", "")
+
+    if a:direction == 'b'
+        execute "normal ?" . l:pattern . "^M"
+    elseif a:direction == 'gv'
+        call CmdLine("vimgrep " . '/'. l:pattern . '/' . ' **/*.')
+    elseif a:direction == 'replace'
+        call CmdLine("%s" . '/'. l:pattern . '/')
+    elseif a:direction == 'f'
+        execute "normal /" . l:pattern . "^M"
+    endif
+
+    let @/ = l:pattern
+    let @" = l:saved_reg
+endfunction
+
+" ----- Emulate 'gf' but recognize :line format -----
+function! GotoFile(w)
+    let curword = expand("<cfile>")
+    if (strlen(curword) == 0)
+        return
+    endif
+    let matchstart = match(curword, ':\d\+$')
+    if matchstart > 0
+        let pos = '+' . strpart(curword, matchstart+1)
+        let fname = strpart(curword, 0, matchstart)
+    else
+        let pos = ""
+        let fname = curword
+    endif
+    " Open new window if requested
+    if a:w == "new"
+        new
+    endif
+    " Use 'find' so path is searched like 'gf' would
+    execute 'find ' . pos . ' ' . fname
+endfunction 
 " }}}
 " {{{ Map
 
+" leader on , and space
 let mapleader=','
+nmap <space> ,
+
+" Gold
+noremap ; :
+
+" Basic stuff
+nmap <leader>w :w<cr>
+nmap <leader>q :q<cr>
+nmap <leader>x :x<cr>
 
 " Move up/down correctly in wrapped lines
 noremap j gj
@@ -201,9 +307,6 @@ map! <S-Insert> <MiddleMouse>
 
 " Stop highlighting search
 map <C-C> :nohlsearch<cr>
-
-" Gold
-noremap ; :
 
 " Dompter le tigre
 noremap <leader>ms :silent! :make -j4 \| :redraw! \| :botright :cw<cr>
@@ -228,12 +331,34 @@ noremap <leader>j :resize -2<cr>
 noremap <leader>h :vertical resize +2<cr>
 noremap <leader>l :vertical resize -2<cr>
 
-" Paste mode
-noremap <leader>pa :setlocal paste!<cr>
+" Faster way to move between windows
+map <C-j> <C-W>j
+map <C-k> <C-W>k
+map <C-h> <C-W>h
+map <C-l> <C-W>l
 
-map <leader>xx :!%:p<cr>
+map <leader>ex :!%:p<cr>
 
 " Rename current file
 map <Leader>n :call RenameFile()<cr>
+
+" Switch CWD to the directory of the open buffer
+map <leader>cd :cd %:p:h<cr>:pwd<cr>
+
+" Visual mode pressing * or # searches for the current selection
+" " Super useful! From an idea by Michael Naumann
+vnoremap <silent> * :call VisualSelection('f')<CR>
+vnoremap <silent> # :call VisualSelection('b')<CR>
+
+" Toggle paste mode on and off
+map <leader>pp :setlocal paste!<cr>
+
+" Show yanks
+map <leader>ys :YRShow
+
+" Override vim commands 'gf', '^Wf', '^W^F'
+nnoremap gf :call GotoFile("")<CR>
+nnoremap <C-W>f :call GotoFile("new")<CR>
+nnoremap <C-W><C-F> :call GotoFile("new")<CR>
 
 " }}}

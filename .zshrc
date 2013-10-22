@@ -97,6 +97,8 @@ alias vr='vim ~/.vimrc'
 function MINE { sudo chown -R $USER $1; } #1 too
 manopt(){ man $1 |sed 's/.\x08//g'|sed -n "/^\s\+-\+$2\b/,/^\s*$/p"|sed '$d;';} 
 alias reconfig='kill -s USR2 `xprop -root _BLACKBOX_PID | awk '"'"'{print $3}'"'"'`'
+cpspd() {rsync --bwlimit=200 src dest} # Do an rsync and limit the bandwidth used to about 200KB/sec.
+#vvar() {OIFS=$IFS;IFS=$'\n';vim $( grep -l '$fill' *.pl );IFS=$OIFS} # Edit the set of files that contain the variable $somevar.
 
 #dompter le tigre
 alias bcm='./bootstrap && ./configure && make -j4'
@@ -118,8 +120,15 @@ alias ..2='cd ../..'
 alias ..3='cd ../../..'
 alias sou='source ~/.zshrc'
 alias age='echo $(( $(( $( date +%s ) - $( date -d "1991-09-23" +%s ) )) / 86400 / 365))'
+# {{{ pig
 rainbow(){ for i in {1..7}; do tput setaf $i; echo $@; tput sgr0; done; } 
 lucky(){ awk -varg=^$1 '$0~arg' .histzsh | shuf | head -1; }
+factorial(){ seq -s* $1 -1 ${2:-1} | bc; }
+dolphin () { for t in {1..7} ;do for i in _ . - '*' - . _ _ _ ;do echo -ne "\b\b__${i}_";sleep 0.20;done;done; }
+randomcd(){ d=$(find / -maxdepth 1 -type d \( -path '/root' -prune -o -print \) | shuf | head -1); cd "$d"; } # randomcd is random.
+am_i_right(){ echo yes; true; }
+ttest1() {while :;do t=($(date +"%l %M %P")); [[ "${t[1]}" == 0 ]] && echo "${t[0]} ${t[2]}" |(espeak||say); sleep 1m; done} # Speak the hour
+# }}}
 
 
 # stage
@@ -151,13 +160,12 @@ alias tree='tree -I __pycache__'
 alias shit='ls -shit'
 alias tmux="TERM=screen-256color-bce tmux"
 # }}}
-
 # {{{ no scripts aloud
 # {{{ ttv
 function ttv
 {
     sshpass -p ediv scp -r /var/www/py/toggleTv.py vide@192.168.1.2:/var/www/py/
-    sshpass -p ediv ssh vide@192.168.1.2 "/var/www/py/toggleTv.py $1"
+    sshpass -p ediv ssh vide@192.168.1.2 "/var/www/py/toggleTv.py $1 $2"
 }
 # }}}
 # {{{ piwall
@@ -252,3 +260,6 @@ function mkhx
     echo "#endif /* !$CAPS""_HXX_ */" >> $1.hxx
 } # }}}
 # }}}
+##
+## mv Picture{,-of-my-cat}.jpg # I find brace expansion useful for renaming
+## files. This cmd expands to "mv Picture.jpg Picture-of-my-cat.jpg
