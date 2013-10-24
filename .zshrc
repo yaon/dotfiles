@@ -94,7 +94,7 @@ alias goo='chromium-browser &'
 alias kgs='javaws http://files.gokgs.com/javaBin/cgoban.jnlp'
 alias zr='vim ~/.zshrc'
 alias vr='vim ~/.vimrc'
-function MINE { sudo chown -R $USER $1; } #1 too
+alias MINE='sudo chown -R yaon' #1 too
 manopt(){ man $1 |sed 's/.\x08//g'|sed -n "/^\s\+-\+$2\b/,/^\s*$/p"|sed '$d;';} 
 alias reconfig='kill -s USR2 `xprop -root _BLACKBOX_PID | awk '"'"'{print $3}'"'"'`'
 cpspd() {rsync --bwlimit=200 src dest} # Do an rsync and limit the bandwidth used to about 200KB/sec.

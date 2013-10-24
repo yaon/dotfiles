@@ -1,5 +1,5 @@
 " Install
-" !git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
+" git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
 " :BundleInstall
 
 " {{{ Vim options
@@ -49,6 +49,7 @@ filetype off
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 
+" Vim bundle manager
 Bundle 'gmarik/vundle'
 
 " Explore files
@@ -57,7 +58,7 @@ Bundle 'scrooloose/nerdtree'
 " Easy commenting
 Bundle 'scrooloose/nerdcommenter'
 
-" Syntax check on save
+" Compile check on save
 Bundle 'scrooloose/syntastic'
 
 " Great status line
@@ -337,7 +338,7 @@ map <C-k> <C-W>k
 map <C-h> <C-W>h
 map <C-l> <C-W>l
 
-map <leader>ex :!%:p<cr>
+map <leader>ef :!%:p<cr>
 
 " Rename current file
 map <Leader>n :call RenameFile()<cr>
@@ -347,18 +348,24 @@ map <leader>cd :cd %:p:h<cr>:pwd<cr>
 
 " Visual mode pressing * or # searches for the current selection
 " " Super useful! From an idea by Michael Naumann
-vnoremap <silent> * :call VisualSelection('f')<CR>
-vnoremap <silent> # :call VisualSelection('b')<CR>
+vnoremap <silent> * :call VisualSelection('f')<cr>
+vnoremap <silent> # :call VisualSelection('b')<cr>
 
 " Toggle paste mode on and off
 map <leader>pp :setlocal paste!<cr>
 
 " Show yanks
-map <leader>ys :YRShow
+map <leader>ys :YRShow<cr>
 
 " Override vim commands 'gf', '^Wf', '^W^F'
-nnoremap gf :call GotoFile("")<CR>
-nnoremap <C-W>f :call GotoFile("new")<CR>
-nnoremap <C-W><C-F> :call GotoFile("new")<CR>
+nnoremap gf :call GotoFile("")<cr>
+nnoremap <C-W>f :call GotoFile("new")<cr>
+nnoremap <C-W><C-F> :call GotoFile("new")<cr>
+
+" Arduino
+map <leader>ia :!sudo ino build && sudo ino upload && sudo ino serial<cr>
+map <leader>iu :!sudo ino build && sudo ino upload<cr>
+map <leader>is :!sudo ino serial<cr>
+map <leader>ib :!sudo ino build<cr>
 
 " }}}
