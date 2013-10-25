@@ -282,7 +282,7 @@ function! GotoFile(w)
     endif
     " Use 'find' so path is searched like 'gf' would
     execute 'find ' . pos . ' ' . fname
-endfunction 
+endfunction
 " }}}
 " {{{ Map
 
@@ -338,6 +338,7 @@ map <C-k> <C-W>k
 map <C-h> <C-W>h
 map <C-l> <C-W>l
 
+" Execute current file
 map <leader>ef :!%:p<cr>
 
 " Rename current file
