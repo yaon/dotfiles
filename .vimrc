@@ -40,7 +40,7 @@ try
     set undodir=~/.vim/tmp/undodir
     set undofile
 catch
-endtry 
+endtry
 
 " }}}
 " Plugins {{{
@@ -54,28 +54,50 @@ Bundle 'gmarik/vundle'
 
 " Explore files
 Bundle 'scrooloose/nerdtree'
+Bundle 'kin/ctrlp.vim'
 
 " Easy commenting
 Bundle 'scrooloose/nerdcommenter'
+Bundle 'tpope/vim-commentary'
 
 " Compile check on save
 Bundle 'scrooloose/syntastic'
 
-" Great status line
-Bundle 'Lokaltog/vim-powerline'
-
-" Color scheme
-Bundle 'nanotech/jellybeans.vim'
+" Plugin for deleting, changing, and adding surroundings
+Bundle 'tpope/vim-surround'
 
 " Press + to expand the visual selection and _ to shrink it.
 Bundle 'terryma/vim-expand-region'
 
-" yank history
+" Yank history
 Bundle 'vim-scripts/YankRing.vim'
 
-" TODO
-"Bundle 'vim-scripts/taglist.vim'
-"Bundle 'mattn/emmet-vim'
+" Multiple visual cursors
+Bundle 'terryma/vim-multiple-cursors'
+
+" Plugin that helps to end certain structures automatically
+Bundle 'tpope/vim-endwise'
+Bundle 'kana/vim-smartinput'
+
+" Allign stuff
+Bundle 'godlygeek/tabular'
+
+" Makes . command work after a plugin map
+Bundle 'tpope/vim-repeat'
+
+" A colorful, dark color scheme
+Bundle 'nanotech/jellybeans.vim'
+
+" Great status line
+Bundle 'Lokaltog/vim-powerline'
+
+"Git wrapper
+Bundle 'tpope/vim-fugitive'
+
+" Syntax and completion stuffs
+Bundle 'pangloss/vim-javascript'
+Bundle 'othree/html5.vim'
+Bundle 'sudar/vim-arduino-syntax'
 
 filetype plugin on
 filetype plugin indent on
@@ -83,10 +105,34 @@ filetype on
 syntax on
 
 " Plugin options
+
 let g:jellybeans_background_color_256='256'
 let g:syntastic_cpp_compiler_options = ' -std=c++0x'
-let g:user_emmet_install_global = 0
-autocmd FileType html,css EmmetInstall
+
+" NERDTree configuration
+let NERDTreeQuitOnOpen  = 0   " don't collapse NERDTree when a file is opened
+let NERDTreeMinimalUI   = 1
+let NERDTreeDirArrows   = 0
+let NERDTreeChDirMode   = 0
+let NERDTreeIgnore      = ['\.pyc$', '\.rbc$', '\~$']
+let NERDTreeHijackNetrw = 0
+let g:nerdtree_tabs_startup_cd = 0
+
+" Nerdtree
+noremap <leader>nt :NERDTreeToggle<cr>
+
+" Tabular
+noremap <leader>tb :Tabularize 
+
+" CtrlP
+let g:ctrlp_map = '<c-o>'
+let g:ctrlp_cmd = 'CtrlO'
+
+" Synstastic errors
+noremap <leader>e :Errors<cr>
+
+" Show yanks
+map <leader>ys :YRShow<cr>
 
 " }}}
 " {{{ Bottom things
@@ -225,10 +271,6 @@ set showmatch
 colorscheme jellybeans
 
 " }}}
-" {{{ syntax
-au BufRead,BufNewFile *.pde set filetype=arduino
-au BufRead,BufNewFile *.ino set filetype=arduino
-" }}}
 " {{{ Functions
 
 function! RenameFile()
@@ -289,6 +331,7 @@ endfunction
 " leader on , and space
 let mapleader=','
 nmap <space> ,
+vmap <space> ,
 
 " Gold
 noremap ; :
@@ -306,6 +349,10 @@ noremap k gk
 map <S-Insert> <MiddleMouse>
 map! <S-Insert> <MiddleMouse>
 
+" Keep visual mode during indenting
+vmap > >gv
+vmap < <gv
+
 " Stop highlighting search
 map <C-C> :nohlsearch<cr>
 
@@ -313,24 +360,14 @@ map <C-C> :nohlsearch<cr>
 noremap <leader>ms :silent! :make -j4 \| :redraw! \| :botright :cw<cr>
 noremap <leader>mk :make<cr>
 
-" Comment
-"nmap <F6> ^2xj
-"nmap <F5> I//<Esc>j
-
 " Clean dirty disgusting pig stuff
 map <leader>ric :retab<cr>gg=G<cr>:%s/[\r \t]\+$//<cr>
 
-" Nerdtree
-noremap <leader>nt :NERDTreeToggle<cr>
-
-" Synstastic errors
-noremap <leader>e :Errors<cr>
-
-" Split resize (pretty lame)
-noremap <leader>k :resize +2<cr>
-noremap <leader>j :resize -2<cr>
-noremap <leader>h :vertical resize +2<cr>
-noremap <leader>l :vertical resize -2<cr>
+" Split resize
+noremap <M-k> :resize +2<cr>
+noremap <M-j> :resize -2<cr>
+noremap <M-h> :vertical resize +2<cr>
+noremap <M-l> :vertical resize -2<cr>
 
 " Faster way to move between windows
 map <C-j> <C-W>j
@@ -342,7 +379,7 @@ map <C-l> <C-W>l
 map <leader>ef :!%:p<cr>
 
 " Rename current file
-map <Leader>n :call RenameFile()<cr>
+map <Leader>mv :call RenameFile()<cr>
 
 " Switch CWD to the directory of the open buffer
 map <leader>cd :cd %:p:h<cr>:pwd<cr>
@@ -355,9 +392,6 @@ vnoremap <silent> # :call VisualSelection('b')<cr>
 " Toggle paste mode on and off
 map <leader>pp :setlocal paste!<cr>
 
-" Show yanks
-map <leader>ys :YRShow<cr>
-
 " Override vim commands 'gf', '^Wf', '^W^F'
 nnoremap gf :call GotoFile("")<cr>
 nnoremap <C-W>f :call GotoFile("new")<cr>
@@ -368,5 +402,8 @@ map <leader>ia :!sudo ino build && sudo ino upload && sudo ino serial<cr>
 map <leader>iu :!sudo ino build && sudo ino upload<cr>
 map <leader>is :!sudo ino serial<cr>
 map <leader>ib :!sudo ino build<cr>
+
+" Use :W! to write to a file using sudo if you forgot to 'sudo vim file'
+ca W! %!sudo tee > /dev/null %
 
 " }}}
