@@ -47,6 +47,8 @@ export PAGER='less'
 export PATH="/sbin:$PATH"
 export EDITOR='vim'
 export WORDCHARS=''
+export GREP_OPTIONS='--color=auto'
+export GREP_COLOR='1;33'
 
 # {{{ Aliases
 
@@ -122,15 +124,15 @@ alias ..3='cd ../../..'
 alias sou='source ~/.zshrc'
 alias age='echo $(( $(( $( date +%s ) - $( date -d "1991-09-23" +%s ) )) / 86400 / 365))'
 # {{{ pig
-rainbow(){ for i in {1..7}; do tput setaf $i; echo $@; tput sgr0; done; } 
+rainbow(){ for i in {1..7}; do tput setaf $i; echo $@; tput sgr0; done; }
 lucky(){ awk -varg=^$1 '$0~arg' .histzsh | shuf | head -1; }
 factorial(){ seq -s* $1 -1 ${2:-1} | bc; }
 dolphin () { for t in {1..7} ;do for i in _ . - '*' - . _ _ _ ;do echo -ne "\b\b__${i}_";sleep 0.20;done;done; }
 randomcd(){ d=$(find / -maxdepth 1 -type d \( -path '/root' -prune -o -print \) | shuf | head -1); cd "$d"; } # randomcd is random.
 am_i_right(){ echo yes; true; }
+amarite(){ echo yes; true; }
 ttest1() {while :;do t=($(date +"%l %M %P")); [[ "${t[1]}" == 0 ]] && echo "${t[0]} ${t[2]}" |(espeak||say); sleep 1m; done} # Speak the hour
 # }}}
-
 
 # stage
 alias -g SC="~/script/"
@@ -260,7 +262,24 @@ function mkhx
     echo >> $1.hxx
     echo "#endif /* !$CAPS""_HXX_ */" >> $1.hxx
 } # }}}
+# {{{ PIencode file
+function PIencode
+{
+    mencoder -oac pcm -ovc copy -aid 1 $1 -o $1.mp4
+} # }}}
+# {{{ gify (Mov to Gif)
+gify() {
+  if [[ -n "$1" && -n "$2" ]]; then
+    ffmpeg -i $1 -pix_fmt rgb24 temp.gif
+    convert -layers Optimize temp.gif $2
+    rm temp.gif
+  else
+    echo "proper usage: gify <input_movie.mov> <output_file.gif>. You DO need to include extensions."
+  fi
+} # }}}
 # }}}
-##
-## mv Picture{,-of-my-cat}.jpg # I find brace expansion useful for renaming
-## files. This cmd expands to "mv Picture.jpg Picture-of-my-cat.jpg
+
+## mv Picture{,-of-my-cat}.jpg
+
+# MEMO
+echo jeudi test technique RDC 17 heures

@@ -29,18 +29,10 @@ set hidden
 " include colon in filenames (for gf)
 set isfname+=:
 
-" Return to last edit position when opening files (You want this!)
-autocmd BufReadPost *
-    \ if line("'\"") > 0 && line("'\"") <= line("$") |
-    \   exe "normal! g`\"" |
-    \ endif
-
-" Keep undo history after closing vim/buffer
-try
-    set undodir=~/.vim/tmp/undodir
-    set undofile
-catch
-endtry
+" leader on , and space
+let mapleader=','
+nmap <space> ,
+vmap <space> ,
 
 " }}}
 " Plugins {{{
@@ -54,7 +46,7 @@ Bundle 'gmarik/vundle'
 
 " Explore files
 Bundle 'scrooloose/nerdtree'
-Bundle 'kin/ctrlp.vim'
+Bundle 'kien/ctrlp.vim'
 
 " Easy commenting
 Bundle 'scrooloose/nerdcommenter'
@@ -98,6 +90,8 @@ Bundle 'tpope/vim-fugitive'
 Bundle 'pangloss/vim-javascript'
 Bundle 'othree/html5.vim'
 Bundle 'sudar/vim-arduino-syntax'
+Bundle 'hynek/vim-python-pep8-indent'
+Bundle 'hdima/python-syntax'
 
 filetype plugin on
 filetype plugin indent on
@@ -107,9 +101,11 @@ syntax on
 " Plugin options
 
 let g:jellybeans_background_color_256='256'
+
 let g:syntastic_cpp_compiler_options = ' -std=c++0x'
 
-" NERDTree configuration
+let python_highlight_all = 1
+
 let NERDTreeQuitOnOpen  = 0   " don't collapse NERDTree when a file is opened
 let NERDTreeMinimalUI   = 1
 let NERDTreeDirArrows   = 0
@@ -122,14 +118,14 @@ let g:nerdtree_tabs_startup_cd = 0
 noremap <leader>nt :NERDTreeToggle<cr>
 
 " Tabular
-noremap <leader>tb :Tabularize 
+noremap <leader>tb :Tabularize \\
 
 " CtrlP
-let g:ctrlp_map = '<c-o>'
-let g:ctrlp_cmd = 'CtrlO'
+let g:ctrlp_map = '<c-e>'
+let g:ctrlp_cmd = 'CtrlP'
 
 " Synstastic errors
-noremap <leader>e :Errors<cr>
+noremap <leader>ee :Errors<cr>
 
 " Show yanks
 map <leader>ys :YRShow<cr>
@@ -164,27 +160,12 @@ set wildignorecase
 " Leaving insert mode instantly
 set ttimeout
 set ttimeoutlen=1
-
-" }}}
-" {{{ Other
-
+"
 " Amazing '/'
 set hlsearch
 set smartcase
 set incsearch
 set ignorecase
-
-" Magnificient folds
-set foldenable
-set foldlevel=99
-set foldlevelstart=0
-set foldmethod=marker
-
-" This is not here
-set mouse=ar
-set mousemodel=extend
-set mousefocus
-set mousehide
 
 " }}}
 " {{{ Edit, motion, indent...
@@ -234,6 +215,12 @@ func! DeleteTrailingWS()
 endfunc
 autocmd BufWrite *.py :call DeleteTrailingWS()
 
+" You didn't see that
+set mouse=ar
+set mousemodel=extend
+set mousefocus
+set mousehide
+
 " }}}
 " {{{ Prettify
 
@@ -270,8 +257,27 @@ set showmatch
 " nice colorscheme
 colorscheme jellybeans
 
+" Magnificient folds
+set foldenable
+set foldlevel=99
+set foldlevelstart=0
+set foldmethod=marker
+
 " }}}
-" {{{ Functions
+" {{{ Functions / whitchcraft
+
+" Return to last edit position when opening files (You want this!)
+autocmd BufReadPost *
+    \ if line("'\"") > 0 && line("'\"") <= line("$") |
+    \   exe "normal! g`\"" |
+    \ endif
+
+" Keep undo history after closing vim/buffer
+try
+    set undodir=~/.vim/tmp/undodir
+    set undofile
+catch
+endtry
 
 function! RenameFile()
     let old_name = expand('%')
@@ -328,11 +334,6 @@ endfunction
 " }}}
 " {{{ Map
 
-" leader on , and space
-let mapleader=','
-nmap <space> ,
-vmap <space> ,
-
 " Gold
 noremap ; :
 
@@ -376,7 +377,7 @@ map <C-h> <C-W>h
 map <C-l> <C-W>l
 
 " Execute current file
-map <leader>ef :!%:p<cr>
+map <leader>ef :!clear<cr>:!%:p<cr>
 
 " Rename current file
 map <Leader>mv :call RenameFile()<cr>
