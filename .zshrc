@@ -1,28 +1,58 @@
+
+
+# Options, exports and stuff {{{
+
 autoload -U colors && colors
 
+HISTSIZE=10000
+SAVEHIST=10000
+HISTFILE=~/.histzsh
+setopt append_history
+setopt extended_history
+setopt hist_expire_dups_first
+setopt hist_ignore_dups
+setopt hist_ignore_space
+setopt hist_verify
+setopt inc_append_history
 setopt histignorealldups sharehistory
+
 setopt prompt_subst
 setopt glob_dots
 setopt EXTENDED_GLOB
 setopt extendedglob
-unsetopt beep #beep!
-unsetopt no_match #should make apt-get globbing work
+unsetopt no_match
 
-# Use emacs keybindings even if our EDITOR is set to vi
-bindkey -e
-# control arrow
-bindkey ';5D' backward-word
-bindkey ';5C' forward-word
+unsetopt beep
 
-# why would you just keep 1000
-HISTSIZE=10000
-SAVEHIST=10000
-HISTFILE=~/.histzsh
+setopt long_list_jobs
 
+local prompt="vm %(?,%{$fg[green]%}%%%{$reset_color%},%{$fg[red]%}#%{$reset_color%})"
+PROMPT="$prompt "
+export RPROMPT=''
+export PAGER='less'
+export LESS="-R"
+export PATH="/sbin:$PATH"
+export EDITOR='vim'
+export WORDCHARS=''
+export GREP_OPTIONS='--color=auto'
+export GREP_COLOR='1;33'
+export LSCOLORS="Gxfxcxdxbxegedabagacad"
+export LC_CTYPE=en_US.UTF-8
+
+# because why the fuck not here
+setxkbmap us
+
+# }}}
 # {{{ completion
 
 autoload -Uz compinit
 compinit
+
+unsetopt menu_complete   # do not autoselect the first completion entry
+unsetopt flowcontrol
+setopt auto_menu         # show completion menu on succesive tab press
+setopt complete_in_word
+setopt always_to_end
 
 zstyle ':completion:*' completer _expand _complete _ignored
 zstyle ':completion:*' list-colors ''
@@ -37,23 +67,75 @@ zstyle ':completion:*' use-compctl false
 zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
 zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
 
+zmodload -i zsh/complist
+
+## case-insensitive (all),partial-word and then substring completion
+if [ "x$CASE_SENSITIVE" = "xtrue" ]; then
+  zstyle ':completion:*' matcher-list 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
+  unset CASE_SENSITIVE
+else
+  zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
+fi
+
+zstyle ':completion:*' list-colors ''
+
+# should this be in keybindings?
+bindkey -M menuselect '^o' accept-and-infer-next-history
+
+zstyle ':completion:*:*:*:*:*' menu select
+zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#) ([0-9a-z-]#)*=01;34=0=01'
+zstyle ':completion:*:*:*:*:processes' command "ps -u `whoami` -o pid,user,comm -w -w"
+
+# disable named-directories autocompletion
+zstyle ':completion:*:cd:*' tag-order local-directories directory-stack path-directories
+cdpath=(.)
+
 # }}}
+# {{{ Keys
 
-# Exports
-local prompt="vm %(?,%{$fg[green]%}%%%{$reset_color%},%{$fg[red]%}#%{$reset_color%})"
-PROMPT="$prompt "
-export RPROMPT=''
-export PAGER='less'
-export PATH="/sbin:$PATH"
-export EDITOR='vim'
-export WORDCHARS=''
-export GREP_OPTIONS='--color=auto'
-export GREP_COLOR='1;33'
+# Edit command line with <c-e>
+autoload -U edit-command-line
+zle -N edit-command-line
+bindkey '\C-e' edit-command-line
 
+# Move word by word
+bindkey ';5D' backward-word
+bindkey ';5C' forward-word
+
+bindkey -e
+bindkey '\ew' kill-region
+bindkey -s '\el' "ls\n"
+bindkey '^r' history-incremental-search-backward
+bindkey "^[[5~" up-line-or-history
+bindkey "^[[6~" down-line-or-history
+
+# make search up and down work, so partially type and hit up/down to find relevant stuff
+bindkey '^[[A' up-line-or-search
+bindkey '^[[B' down-line-or-search
+
+bindkey "^[[H" beginning-of-line
+bindkey "^[[1~" beginning-of-line
+bindkey "^[OH" beginning-of-line
+bindkey "^[[F"  end-of-line
+bindkey "^[[4~" end-of-line
+bindkey "^[OF" end-of-line
+
+bindkey "^[[1;5C" forward-word
+bindkey "^[[1;5D" backward-word
+
+bindkey '^[[Z' reverse-menu-complete
+
+# Make the delete key (or Fn + Delete) work instead of outputting a ~
+bindkey '^?' backward-delete-char
+bindkey "^[[3~" delete-char
+bindkey "^[3;5~" delete-char
+bindkey "\e[3~" delete-char
+
+# }}}
 # {{{ Aliases
 
-# because why the fuck not here
-setxkbmap us
+alias 5get='echo pyshell: code.interact(local=locals())'
+
 ## univ
 alias ls='ls --color=auto'
 alias grep='grep --color=auto'
@@ -82,6 +164,11 @@ alias glr='git log --raw'
 alias glg='git log --graph'
 alias glo='git log --pretty=oneline'
 alias glp='git log -p'
+
+alias rsync-copy="rsync -av --progress -h"
+alias rsync-move="rsync -av --progress -h --remove-source-files"
+alias rsync-update="rsync -avu --progress -h"
+alias rsync-synchronize="rsync -avu --delete --progress -h"
 
 # essencial
 alias repof='sudo reboot'
@@ -123,6 +210,20 @@ alias ..2='cd ../..'
 alias ..3='cd ../../..'
 alias sou='source ~/.zshrc'
 alias age='echo $(( $(( $( date +%s ) - $( date -d "1991-09-23" +%s ) )) / 86400 / 365))'
+
+# (verry) advanced syntax correction
+alias please='sudo'
+alias wtf='dmesg'
+alias nomz='ps aux'
+alias nomnom='killall'
+alias rtfm='man'
+alias donotwant='rm'
+alias dowant='cp'
+alias gtfo='mv'
+alias byes='exit'
+alias cya='reboot'
+alias kthxbai='halt'
+
 # {{{ pig
 rainbow(){ for i in {1..7}; do tput setaf $i; echo $@; tput sgr0; done; }
 lucky(){ awk -varg=^$1 '$0~arg' .histzsh | shuf | head -1; }
@@ -192,7 +293,8 @@ function piwall_master
 # {{{ piEncode in out
 function piEncode
 {
-    mencoder $1 -o $2 -oac copy -ovc lavc -lavcopts vcodec=mpeg1video -of mpeg
+    #mencoder $1 -o $2 -oac copy -ovc lavc -lavcopts vcodec=mpeg1video -of mpeg
+    mencoder -oac pcm -ovc copy -aid 1 $1 -o $1.mp4
 }
 # }}}
 # {{{ mkc
@@ -277,9 +379,116 @@ gify() {
     echo "proper usage: gify <input_movie.mov> <output_file.gif>. You DO need to include extensions."
   fi
 } # }}}
-# }}}
+# {{{ colors ?
+# A script to make using 256 colors in zsh less painful.
+# P.C. Shyamshankar <sykora@lucentbeing.com>
+# Copied from http://github.com/sykora/etc/blob/master/zsh/functions/spectrum/
 
-## mv Picture{,-of-my-cat}.jpg
+typeset -Ag FX FG BG
+
+FX=(
+    reset     "%{[00m%}"
+    bold      "%{[01m%}" no-bold      "%{[22m%}"
+    italic    "%{[03m%}" no-italic    "%{[23m%}"
+    underline "%{[04m%}" no-underline "%{[24m%}"
+    blink     "%{[05m%}" no-blink     "%{[25m%}"
+    reverse   "%{[07m%}" no-reverse   "%{[27m%}"
+)
+
+for color in {000..255}; do
+    FG[$color]="%{[38;5;${color}m%}"
+    BG[$color]="%{[48;5;${color}m%}"
+done
+
+# Show all 256 colors with color number
+function spectrum_ls() {
+  for code in {000..255}; do
+    print -P -- "$code: %F{$code}Test%f"
+  done
+}
+
+# }}}
+#{{{ web_search
+function web_search()
+{
+    local open_cmd
+    if [[ $(uname -s) == 'Darwin' ]]; then
+        open_cmd='open'
+    else
+        open_cmd='xdg-open'
+    fi
+
+
+    if [[ ! $1 =~ '(google|bing|yahoo|duckduckgo)' ]];
+    then
+        echo "Search engine $1 not supported."
+        return 1
+    fi
+
+    local url="http://www.$1.com"
+
+
+    if [[ $# -le 1 ]]; then
+        $open_cmd "$url"
+        return
+    fi
+    if [[ $1 == 'duckduckgo' ]]; then
+
+        url="${url}/?q="
+    else
+        url="${url}/search?q="
+    fi
+    shift
+
+    while [[ $# -gt 0 ]]; do
+        url="${url}$1+"
+        shift
+    done
+
+    url="${url%?}"
+
+    $open_cmd "$url"
+}
+
+
+alias bing='web_search bing'
+alias google='web_search google'
+alias yahoo='web_search yahoo'
+alias ddg='web_search duckduckgo'
+
+alias wiki='web_search duckduckgo \!w'
+alias news='web_search duckduckgo \!n'
+alias youtube='web_search duckduckgo \!yt'
+alias map='web_search duckduckgo \!m'
+alias image='web_search duckduckgo \!i'
+alias ducky='web_search duckduckgo \!'
+
+#}}}
+# {{{ Colors for man
+man()
+{
+    env \
+        LESS_TERMCAP_mb=$(printf "\e[1;31m") \
+        LESS_TERMCAP_md=$(printf "\e[1;31m") \
+        LESS_TERMCAP_me=$(printf "\e[0m") \
+        LESS_TERMCAP_se=$(printf "\e[0m") \
+        LESS_TERMCAP_so=$(printf "\e[1;44;33m") \
+        LESS_TERMCAP_ue=$(printf "\e[0m") \
+        LESS_TERMCAP_us=$(printf "\e[1;32m") \
+        man "$@"
+}
+#}}}
+# {{{ how_do_i_prettyfact?
+function how_do_i_prettyfact?
+{
+    echo ez:
+    echo 'static void prettyfact(int n)'
+    echo '{ if (n == 1) throw 1; try { prettyfact (n-1); } catch (int i) { throw i*n; } }'
+    echo 'int fact (int n)'
+    echo '{ try { prettyfact (n); } catch (int ret) { return ret; } return 0; }'
+}
+# }}}
+# }}}
 
 # MEMO
 echo jeudi test technique RDC 17 heures
