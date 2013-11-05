@@ -3,6 +3,7 @@
 " :BundleInstall
 
 " {{{ Vim options
+
 " Disable vi compatibility
 set nocompatible
 
@@ -26,13 +27,9 @@ set viminfo^=%
 " Keep unsaved buffers
 set hidden
 
-" include colon in filenames (for gf)
-set isfname+=:
-
 " leader on , and space
 let mapleader=','
-nmap <space> ,
-vmap <space> ,
+map <space> ,
 
 " }}}
 " Plugins {{{
@@ -64,9 +61,6 @@ Bundle 'terryma/vim-expand-region'
 " Yank history
 Bundle 'vim-scripts/YankRing.vim'
 
-" Multiple visual cursors
-Bundle 'terryma/vim-multiple-cursors'
-
 " Plugin that helps to end certain structures automatically
 Bundle 'tpope/vim-endwise'
 Bundle 'kana/vim-smartinput'
@@ -79,11 +73,12 @@ Bundle 'tpope/vim-repeat'
 
 " A colorful, dark color scheme
 Bundle 'nanotech/jellybeans.vim'
+Bundle 'altercation/vim-colors-solarized'
 
 " Great status line
 Bundle 'Lokaltog/vim-powerline'
 
-"Git wrapper
+" Git wrapper
 Bundle 'tpope/vim-fugitive'
 
 " Syntax and completion stuffs
@@ -92,13 +87,17 @@ Bundle 'othree/html5.vim'
 Bundle 'sudar/vim-arduino-syntax'
 Bundle 'hynek/vim-python-pep8-indent'
 Bundle 'hdima/python-syntax'
+Bundle 'leafgarland/typescript-vim'
 
 filetype plugin on
 filetype plugin indent on
 filetype on
 syntax on
 
-" Plugin options
+" }}}
+" {{{ Plugin options/mappings
+
+let g:yankring_history_dir = '~/.vim/tmp'
 
 let g:jellybeans_background_color_256='256'
 
@@ -107,7 +106,7 @@ let g:syntastic_cpp_compiler_options = ' -std=c++0x'
 let python_highlight_all = 1
 
 let NERDTreeQuitOnOpen  = 0   " don't collapse NERDTree when a file is opened
-let NERDTreeMinimalUI   = 1
+let NERDTreeMinimalUI   = 0
 let NERDTreeDirArrows   = 0
 let NERDTreeChDirMode   = 0
 let NERDTreeIgnore      = ['\.pyc$', '\.rbc$', '\~$']
@@ -115,20 +114,31 @@ let NERDTreeHijackNetrw = 0
 let g:nerdtree_tabs_startup_cd = 0
 
 " Nerdtree
-noremap <leader>nt :NERDTreeToggle<cr>
+map <leader>nt :NERDTreeToggle<cr>
 
 " Tabular
-noremap <leader>tb :Tabularize \\
+map <leader>tb :Tabularize /
 
 " CtrlP
 let g:ctrlp_map = '<c-e>'
 let g:ctrlp_cmd = 'CtrlP'
 
 " Synstastic errors
-noremap <leader>ee :Errors<cr>
+map <leader>ee :Errors<cr>
 
 " Show yanks
 map <leader>ys :YRShow<cr>
+
+" Git diff
+map <leader>gd Gdiff<cr>
+
+" Colorscheme
+" set t_Co=256
+" syntax enable
+" set background=dark
+" let g:solarized_termcolors=256
+" colorscheme solarized
+colorscheme jellybeans
 
 " }}}
 " {{{ Bottom things
@@ -230,6 +240,9 @@ set wrap
 " For wrapped lines
 set showbreak=\
 
+" Spellcheking
+highlight SpellBad term=underline gui=undercurl
+
 " Line numbers in insert mode and relative in command mode
 set relativenumber
 autocmd InsertEnter * :set number
@@ -237,6 +250,9 @@ autocmd InsertLeave * :set relativenumber
 
 " Cool looking vertical splits
 set fillchars=vert:│
+
+" Resize splits when the window is resized
+au VimResized * exe "normal! \<c-w>="
 
 " Show trailing whitespaces and tabs
 set list
@@ -253,9 +269,6 @@ set t_Co=256
 
 " Show matching brackets when text indicator is over them
 set showmatch
-
-" nice colorscheme
-colorscheme jellybeans
 
 " Magnificient folds
 set foldenable
@@ -310,6 +323,9 @@ function! VisualSelection(direction) range
     let @" = l:saved_reg
 endfunction
 
+" include colon in filenames (for gf)
+set isfname+=:
+
 " ----- Emulate 'gf' but recognize :line format -----
 function! GotoFile(w)
     let curword = expand("<cfile>")
@@ -331,20 +347,24 @@ function! GotoFile(w)
     " Use 'find' so path is searched like 'gf' would
     execute 'find ' . pos . ' ' . fname
 endfunction
+
+"Source .vimrc on close, kills my term...
+"autocmd bufwritepost .vimrc source $MYVIMRC
+
 " }}}
 " {{{ Map
 
 " Gold
-noremap ; :
+map ; :
 
 " Basic stuff
-nmap <leader>w :w<cr>
-nmap <leader>q :q<cr>
-nmap <leader>x :x<cr>
+map <leader>w :w<cr>
+map <leader>q :q<cr>
+map <leader>x :x<cr>
 
 " Move up/down correctly in wrapped lines
-noremap j gj
-noremap k gk
+map j gj
+map k gk
 
 " Paste !
 map <S-Insert> <MiddleMouse>
@@ -358,17 +378,17 @@ vmap < <gv
 map <C-C> :nohlsearch<cr>
 
 " Dompter le tigre
-noremap <leader>ms :silent! :make -j4 \| :redraw! \| :botright :cw<cr>
-noremap <leader>mk :make<cr>
+map <leader>ms :silent! :make -j4 \| :redraw! \| :botright :cw<cr>
+map <leader>mk :make<cr>
 
 " Clean dirty disgusting pig stuff
 map <leader>ric :retab<cr>gg=G<cr>:%s/[\r \t]\+$//<cr>
 
 " Split resize
-noremap <M-k> :resize +2<cr>
-noremap <M-j> :resize -2<cr>
-noremap <M-h> :vertical resize +2<cr>
-noremap <M-l> :vertical resize -2<cr>
+map <M-k> :resize +2<cr>
+map <M-j> :resize -2<cr>
+map <M-h> :vertical resize +2<cr>
+map <M-l> :vertical resize -2<cr>
 
 " Faster way to move between windows
 map <C-j> <C-W>j
@@ -387,16 +407,16 @@ map <leader>cd :cd %:p:h<cr>:pwd<cr>
 
 " Visual mode pressing * or # searches for the current selection
 " " Super useful! From an idea by Michael Naumann
-vnoremap <silent> * :call VisualSelection('f')<cr>
-vnoremap <silent> # :call VisualSelection('b')<cr>
+vmap <silent> * :call VisualSelection('f')<cr>
+vmap <silent> # :call VisualSelection('b')<cr>
 
 " Toggle paste mode on and off
 map <leader>pp :setlocal paste!<cr>
 
 " Override vim commands 'gf', '^Wf', '^W^F'
-nnoremap gf :call GotoFile("")<cr>
-nnoremap <C-W>f :call GotoFile("new")<cr>
-nnoremap <C-W><C-F> :call GotoFile("new")<cr>
+nmap gf :call GotoFile("")<cr>
+nmap <C-W>f :call GotoFile("new")<cr>
+nmap <C-W><C-F> :call GotoFile("new")<cr>
 
 " Arduino
 map <leader>ia :!sudo ino build && sudo ino upload && sudo ino serial<cr>
@@ -406,5 +426,20 @@ map <leader>ib :!sudo ino build<cr>
 
 " Use :W! to write to a file using sudo if you forgot to 'sudo vim file'
 ca W! %!sudo tee > /dev/null %
+
+" Source vimrc
+map <leader>so :source $MYVIMRC<cr>
+
+" Select (charwise) the contents of the current line, excluding indentation.
+map vv ^vg_"
+
+" Open .vimrc in a separated split
+map <leader>ev <C-w><C-v><C-l>:e $MYVIMRC<cr>
+
+" Select (linewise) the text you just pasted (handy for modifying indentation)
+map <leader>v V`]
+
+" Reload file
+map <leader>rf :edit!<cr>
 
 " }}}
