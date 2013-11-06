@@ -28,6 +28,7 @@ set viminfo^=%
 set hidden
 
 " leader on , and space
+let g:is_posix = 1
 let mapleader=','
 map <space> ,
 
@@ -205,6 +206,9 @@ set expandtab
 " Indent options
 set cinoptions=>s,e0,n0,f0,{0,}0,^0,:s,=s,ps,t0,(0,u0,)20,*80,g0
 
+" Do not insert comment automatically
+autocmd FileType * setlocal fo-=c fo-=r fo-=o
+
 " Completion options
 set complete=t,k,.,w,b,u,i
 
@@ -256,7 +260,7 @@ au VimResized * exe "normal! \<c-w>="
 
 " Show trailing whitespaces and tabs
 set list
-set listchars=tab:>\ ,trail:\ 
+set listchars=tab:>\ ,trail:\ ,
 
 " Vertical line at textwidth
 set colorcolumn=+1
@@ -361,6 +365,9 @@ map ; :
 map <leader>w :w<cr>
 map <leader>q :q<cr>
 map <leader>x :x<cr>
+map <leader>W :w!<cr>
+map <leader>Q :q!<cr>
+map <leader>X :x!<cr>
 
 " Move up/down correctly in wrapped lines
 map j gj
@@ -425,7 +432,7 @@ map <leader>is :!sudo ino serial<cr>
 map <leader>ib :!sudo ino build<cr>
 
 " Use :W! to write to a file using sudo if you forgot to 'sudo vim file'
-ca W! %!sudo tee > /dev/null %
+cmap W! %!sudo tee > /dev/null %
 
 " Source vimrc
 map <leader>so :source $MYVIMRC<cr>
@@ -440,6 +447,6 @@ map <leader>ev <C-w><C-v><C-l>:e $MYVIMRC<cr>
 map <leader>v V`]
 
 " Reload file
-map <leader>rf :edit!<cr>
+map <leader>lf :edit!<cr>
 
 " }}}

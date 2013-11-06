@@ -1,5 +1,3 @@
-
-
 # Options, exports and stuff {{{
 
 autoload -U colors && colors
@@ -38,6 +36,13 @@ export GREP_OPTIONS='--color=auto'
 export GREP_COLOR='1;33'
 export LSCOLORS="Gxfxcxdxbxegedabagacad"
 export LC_CTYPE=en_US.UTF-8
+export LESS_TERMCAP_mb=$'\E[01;31m'       # begin blinking
+export LESS_TERMCAP_md=$'\E[01;38;5;74m'  # begin bold
+export LESS_TERMCAP_me=$'\E[0m'           # end mode
+export LESS_TERMCAP_se=$'\E[0m'           # end standout-mode
+export LESS_TERMCAP_so=$'\E[38;5;246m'    # begin standout-mode - info box
+export LESS_TERMCAP_ue=$'\E[0m'           # end underline
+export LESS_TERMCAP_us=$'\E[04;38;5;146m' # begin underline
 
 # because why the fuck not here
 setxkbmap us
@@ -93,10 +98,10 @@ cdpath=(.)
 # }}}
 # {{{ Keys
 
-# Edit command line with <c-e>
+# Edit command line with <c-w>
 autoload -U edit-command-line
 zle -N edit-command-line
-bindkey '\C-e' edit-command-line
+bindkey '\C-w' edit-command-line
 
 # Move word by word
 bindkey ';5D' backward-word
@@ -157,7 +162,7 @@ alias -g ND='*(/om[1])' # newest directory
 alias -g NF='*(.om[1])' # newest file FIXME: allways .histfile ...
 alias lsL='ls -hlS **/*(.Lm+2)  | less' # list largest files  largest first  *N*
 alias -g G="| grep" #fuck this
-alias -g L="| less" #and that
+alias -g L="| less" #and that (i still like you two)
 
 alias gls='git log --stat'
 alias glr='git log --raw'
@@ -183,7 +188,7 @@ alias goo='chromium-browser &'
 alias kgs='javaws http://files.gokgs.com/javaBin/cgoban.jnlp'
 alias zr='vim ~/.zshrc'
 alias vr='vim ~/.vimrc'
-alias MINE='sudo chown -R yaon' #1 too
+alias MINE="sudo chown -R $USER.$USER" #1 too
 alias pig='ping google.com'
 manopt(){ man $1 |sed 's/.\x08//g'|sed -n "/^\s\+-\+$2\b/,/^\s*$/p"|sed '$d;';} 
 alias reconfig='kill -s USR2 `xprop -root _BLACKBOX_PID | awk '"'"'{print $3}'"'"'`'
@@ -204,6 +209,13 @@ alias v='vim'
 alias jim='vim'
 alias bim='vim'
 alias vin='vim'
+alias nano='vim'
+alias pico='vim'
+alias emacs='vim'
+alias gedit='vim'
+alias notepad='vim'
+alias world='vim'
+alias notepad++='vim'
 alias g='git'
 alias ..1='cd ..'
 alias ..2='cd ../..'
@@ -263,6 +275,7 @@ alias tree='tree -I __pycache__'
 #cool
 alias shit='ls -shit'
 alias tmux="TERM=screen-256color-bce tmux"
+function ifd { "sudo ifup $1; sudo ifdown $1" }
 # }}}
 # {{{ no scripts aloud
 # {{{ ttv
@@ -364,11 +377,6 @@ function mkhx
     echo >> $1.hxx
     echo "#endif /* !$CAPS""_HXX_ */" >> $1.hxx
 } # }}}
-# {{{ PIencode file
-function PIencode
-{
-    mencoder -oac pcm -ovc copy -aid 1 $1 -o $1.mp4
-} # }}}
 # {{{ gify (Mov to Gif)
 gify() {
   if [[ -n "$1" && -n "$2" ]]; then
@@ -464,20 +472,20 @@ alias image='web_search duckduckgo \!i'
 alias ducky='web_search duckduckgo \!'
 
 #}}}
-# {{{ Colors for man
-man()
-{
-    env \
-        LESS_TERMCAP_mb=$(printf "\e[1;31m") \
-        LESS_TERMCAP_md=$(printf "\e[1;31m") \
-        LESS_TERMCAP_me=$(printf "\e[0m") \
-        LESS_TERMCAP_se=$(printf "\e[0m") \
-        LESS_TERMCAP_so=$(printf "\e[1;44;33m") \
-        LESS_TERMCAP_ue=$(printf "\e[0m") \
-        LESS_TERMCAP_us=$(printf "\e[1;32m") \
-        man "$@"
-}
-#}}}
+# # {{{ Colors for man
+# man()
+# {
+#     env \
+#         LESS_TERMCAP_mb=$(printf "\e[1;31m") \
+#         LESS_TERMCAP_md=$(printf "\e[1;31m") \
+#         LESS_TERMCAP_me=$(printf "\e[0m") \
+#         LESS_TERMCAP_se=$(printf "\e[0m") \
+#         LESS_TERMCAP_so=$(printf "\e[1;44;33m") \
+#         LESS_TERMCAP_ue=$(printf "\e[0m") \
+#         LESS_TERMCAP_us=$(printf "\e[1;32m") \
+#         man "$@"
+# }
+# #}}}
 # {{{ how_do_i_prettyfact?
 function how_do_i_prettyfact?
 {
@@ -488,7 +496,10 @@ function how_do_i_prettyfact?
     echo '{ try { prettyfact (n); } catch (int ret) { return ret; } return 0; }'
 }
 # }}}
+# {{{ tips
+function tips
+{
+    echo 'import code; code.interact(local = locals())'
+}
 # }}}
-
-# MEMO
-echo jeudi test technique RDC 17 heures
+# }}}
