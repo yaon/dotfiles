@@ -1,7 +1,7 @@
 " Install
 " git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
 " :BundleInstall
-
+colorscheme evening
 " {{{ Vim options
 
 " Disable vi compatibility
@@ -27,8 +27,10 @@ set viminfo^=%
 " Keep unsaved buffers
 set hidden
 
-" leader on , and space
+let windows = has("win32") || has("win64")
 let g:is_posix = 1
+
+" leader on , and space 
 let mapleader=','
 map <space> ,
 
@@ -36,22 +38,32 @@ map <space> ,
 " Plugins {{{
 
 filetype off
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
+
+if windows
+    set rtp+=~/vimfiles/bundle/vundle/
+    call vundle#rc('$HOME/vimfiles/bundle/')
+else
+    set rtp+=~/.vim/bundle/vundle/
+    call vundle#rc()
+endif
 
 " Vim bundle manager
 Bundle 'gmarik/vundle'
 
 " Explore files
 Bundle 'scrooloose/nerdtree'
-Bundle 'kien/ctrlp.vim'
+if !windows
+    Bundle 'kien/ctrlp.vim'
+endif
 
 " Easy commenting
 Bundle 'scrooloose/nerdcommenter'
 Bundle 'tpope/vim-commentary'
 
 " Compile check on save
-Bundle 'scrooloose/syntastic'
+if !windows
+    Bundle 'scrooloose/syntastic'
+endif
 
 " Plugin for deleting, changing, and adding surroundings
 Bundle 'tpope/vim-surround'
@@ -60,7 +72,9 @@ Bundle 'tpope/vim-surround'
 Bundle 'terryma/vim-expand-region'
 
 " Yank history
-Bundle 'vim-scripts/YankRing.vim'
+if !windows
+    Bundle 'vim-scripts/YankRing.vim'
+endif
 
 " Plugin that helps to end certain structures automatically
 Bundle 'tpope/vim-endwise'
@@ -98,7 +112,11 @@ syntax on
 " }}}
 " {{{ Plugin options/mappings
 
-let g:yankring_history_dir = '~/.vim/tmp'
+if windows
+    let g:yankring_history_dir = '$HOME/vimfiles/tmp'
+else
+    let g:yankring_history_dir = '~/.vim/tmp'
+endif
 
 let g:jellybeans_background_color_256='256'
 
@@ -291,7 +309,11 @@ autocmd BufReadPost *
 
 " Keep undo history after closing vim/buffer
 try
-    set undodir=~/.vim/tmp/undodir
+    if windows
+        set undodir=~/vimfiles/tmp/undodir
+    else
+        set undodir=~/.vim/tmp/undodir
+    endif
     set undofile
 catch
 endtry
@@ -340,7 +362,7 @@ function! GotoFile(w)
     if matchstart > 0
         let pos = '+' . strpart(curword, matchstart+1)
         let fname = strpart(curword, 0, matchstart)
-    else
+    elseif
         let pos = ""
         let fname = curword
     endif
@@ -382,7 +404,7 @@ vmap > >gv
 vmap < <gv
 
 " Stop highlighting search
-map <C-C> :nohlsearch<cr>
+map <leader>nh :nohlsearch<cr>
 
 " Dompter le tigre
 map <leader>ms :silent! :make -j4 \| :redraw! \| :botright :cw<cr>
@@ -398,10 +420,12 @@ map <M-h> :vertical resize +2<cr>
 map <M-l> :vertical resize -2<cr>
 
 " Faster way to move between windows
-map <C-j> <C-W>j
-map <C-k> <C-W>k
-map <C-h> <C-W>h
-map <C-l> <C-W>l
+if !windows
+    map <C-j> <C-W>j
+    map <C-k> <C-W>k
+    map <C-h> <C-W>h
+    map <C-l> <C-W>l
+endif
 
 " Execute current file
 map <leader>ef :!clear<cr>:!%:p<cr>
@@ -449,4 +473,4 @@ map <leader>v V`]
 " Reload file
 map <leader>lf :edit!<cr>
 
-" }}}
+"
