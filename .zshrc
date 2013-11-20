@@ -24,8 +24,7 @@ unsetopt beep
 
 setopt long_list_jobs
 
-local prompt="vm %(?,%{$fg[green]%}%%%{$reset_color%},%{$fg[red]%}#%{$reset_color%})"
-PROMPT="$prompt "
+export PROMPT="$USER %(?,%{$fg[green]%}%%%{$reset_color%},%{$fg[red]%}#%{$reset_color%}) "
 export RPROMPT=''
 export PAGER='less'
 export LESS="-R"
@@ -190,7 +189,7 @@ alias zr='vim ~/.zshrc'
 alias vr='vim ~/.vimrc'
 alias MINE="sudo chown -R $USER.$USER" #1 too
 alias pig='ping google.com'
-manopt(){ man $1 |sed 's/.\x08//g'|sed -n "/^\s\+-\+$2\b/,/^\s*$/p"|sed '$d;';} 
+manopt(){ man $1 |sed 's/.\x08//g'|sed -n "/^\s\+-\+$2\b/,/^\s*$/p"|sed '$d;';}
 alias reconfig='kill -s USR2 `xprop -root _BLACKBOX_PID | awk '"'"'{print $3}'"'"'`'
 cpspd() {rsync --bwlimit=200 src dest} # Do an rsync and limit the bandwidth used to about 200KB/sec.
 #vvar() {OIFS=$IFS;IFS=$'\n';vim $( grep -l '$fill' *.pl );IFS=$OIFS} # Edit the set of files that contain the variable $somevar.
@@ -266,7 +265,8 @@ alias -g MS='vide@192.168.1.100'
 alias cda='cd /home/yaon/aureole'
 alias suj='evince ~/dev/suj.pdf &'
 alias sli='evince ~/dev/sli.pdf &'
-alias -g PI='pi@192.168.0.46'
+alias -g LOCPI='pi@192.168.0.46'
+alias pissh='ssh pi@93.19.13.24 -D 22233'
 
 # python
 alias py='python3.2'
