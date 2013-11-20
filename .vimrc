@@ -1,7 +1,7 @@
 " Install
 " git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
 " :BundleInstall
-colorscheme evening
+
 " {{{ Vim options
 
 " Disable vi compatibility
@@ -27,14 +27,39 @@ set viminfo^=%
 " Keep unsaved buffers
 set hidden
 
-let windows = has("win32") || has("win64")
+" Disable beep
+set visualbell
+set t_vb=
+
 let g:is_posix = 1
 
-" leader on , and space 
+" leader on , and space
 let mapleader=','
 map <space> ,
 
 " }}}
+"{{{ Windows
+
+let windows = has("win32") || has("win64")
+
+if has("gui")
+    " GUI font
+    set guifont=Ubuntu_Mono:h14
+
+    "remove menu bar
+    set guioptions-=m
+
+    "remove toolbar
+    set guioptions-=T
+
+    "remove right-hand scroll bar
+    set guioptions-=r
+
+    " Allways have block cursor
+    set guicursor=n-c-v-i:block
+endif
+
+""}}}
 " Plugins {{{
 
 filetype off
@@ -121,6 +146,7 @@ endif
 let g:jellybeans_background_color_256='256'
 
 let g:syntastic_cpp_compiler_options = ' -std=c++0x'
+let g:syntastic_python_python_exe = 'python3'
 
 let python_highlight_all = 1
 
@@ -310,7 +336,7 @@ autocmd BufReadPost *
 " Keep undo history after closing vim/buffer
 try
     if windows
-        set undodir=~/vimfiles/tmp/undodir
+        set undodir=~/_vim/tmp/undodir
     else
         set undodir=~/.vim/tmp/undodir
     endif
@@ -383,6 +409,18 @@ endfunction
 " Gold
 map ; :
 
+" Visual studio mode with vsvim
+    "behave mswin
+
+    " Backspace to delete visual selection
+    vmap <BS> d
+
+    " Getting rid of control commands (not really using UHL anyways)
+    nmap vv <C-V>
+    noremap U <C-R>
+    nmap H <C-D>
+    nmap L <C-U>
+
 " Basic stuff
 map <leader>w :w<cr>
 map <leader>q :q<cr>
@@ -420,15 +458,16 @@ map <M-h> :vertical resize +2<cr>
 map <M-l> :vertical resize -2<cr>
 
 " Faster way to move between windows
-if !windows
-    map <C-j> <C-W>j
-    map <C-k> <C-W>k
-    map <C-h> <C-W>h
-    map <C-l> <C-W>l
-endif
+map <C-j> <C-W>j
+map <C-k> <C-W>k
+map <C-h> <C-W>h
+map <C-l> <C-W>l
 
 " Execute current file
 map <leader>ef :!clear<cr>:!%:p<cr>
+
+" Execute current file | less
+" map <leader>el :!clear<cr>:!%p<cr>
 
 " Rename current file
 map <Leader>mv :call RenameFile()<cr>
@@ -462,15 +501,22 @@ cmap W! %!sudo tee > /dev/null %
 map <leader>so :source $MYVIMRC<cr>
 
 " Select (charwise) the contents of the current line, excluding indentation.
-map vv ^vg_"
+map <leader>v ^vg_"
 
 " Open .vimrc in a separated split
 map <leader>ev <C-w><C-v><C-l>:e $MYVIMRC<cr>
 
 " Select (linewise) the text you just pasted (handy for modifying indentation)
-map <leader>v V`]
+map <leader>V V`]
 
 " Reload file
 map <leader>lf :edit!<cr>
 
-"
+" don't
+map <up> <nop>
+map <down> <nop>
+map <right> <nop>
+map <left> <nop>
+map <tab> <nop>
+
+" }}}
