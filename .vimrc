@@ -121,9 +121,6 @@ Bundle 'Lokaltog/vim-powerline'
 " Git wrapper
 Bundle 'tpope/vim-fugitive'
 
-" Snipmate
-Bundle "msanders/snipmate.vim"
-
 " Syntax and completion stuffs
 Bundle 'pangloss/vim-javascript'
 Bundle 'othree/html5.vim'
@@ -524,7 +521,6 @@ map <left> <nop>
 map <tab> <nop>
 
 " }}}
-
 " {{{ Impractical vim
 " start a a euler problem plugins kills Vimgolf... require commenter thingie
 
