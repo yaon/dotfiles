@@ -121,6 +121,9 @@ Bundle 'Lokaltog/vim-powerline'
 " Git wrapper
 Bundle 'tpope/vim-fugitive'
 
+" Snipmate
+Bundle "msanders/snipmate.vim"
+
 " Syntax and completion stuffs
 Bundle 'pangloss/vim-javascript'
 Bundle 'othree/html5.vim'
@@ -451,7 +454,7 @@ map <leader>mk :make<cr>
 " Clean dirty disgusting pig stuff
 map <leader>ric :retab<cr>gg=G<cr>:%s/[\r \t]\+$//<cr>
 
-" Split resize
+" Split resize #TODO
 map <M-k> :resize +2<cr>
 map <M-j> :resize -2<cr>
 map <M-h> :vertical resize +2<cr>
@@ -519,4 +522,7 @@ map <right> <nop>
 map <left> <nop>
 map <tab> <nop>
 
+" }}}
+" {{{ Snippets
+"call MakeSnip("python", "eul", "# {{{ p${1} \r def p${1}:\rret = 0\rreturn ret\r# }}}") 
 " }}}
