@@ -98,7 +98,7 @@ Bundle 'terryma/vim-expand-region'
 
 " Yank history
 if !windows
-    Bundle 'vim-scripts/YankRing.vim'
+    "Bundle 'vim-scripts/YankRing.vim'
 endif
 
 " Plugin that helps to end certain structures automatically
@@ -246,6 +246,7 @@ set smartindent
 
 " Break lines before 80th column
 set textwidth=79
+set wrapmargin=0
 
 " Insert spaces insted of tabs
 set expandtab
@@ -253,7 +254,7 @@ set expandtab
 " Indent options
 set cinoptions=>s,e0,n0,f0,{0,}0,^0,:s,=s,ps,t0,(0,u0,)20,*80,g0
 
-" Do not insert comment automatically
+" Do not insert comment automatically 
 autocmd FileType * setlocal fo-=c fo-=r fo-=o
 
 " Completion options
@@ -292,7 +293,7 @@ set wrap
 set showbreak=\
 
 " Spellcheking
-highlight SpellBad term=underline gui=undercurl
+" highlight SpellBad term=underline gui=undercurl
 
 " Line numbers in insert mode and relative in command mode
 set relativenumber
@@ -523,6 +524,10 @@ map <left> <nop>
 map <tab> <nop>
 
 " }}}
-" {{{ Snippets
-"call MakeSnip("python", "eul", "# {{{ p${1} \r def p${1}:\rret = 0\rreturn ret\r# }}}") 
+
+" {{{ Impractical vim
+" start a a euler problem plugins kills Vimgolf... require commenter thingie
+
+nmap <leader>se "ddiw:e ~/euler/problems.txt<cr>/Problem <c-r>"$<cr>V/Problem<cr>5ky:bp<cr>PV`]gc`]ji<cr>def p<esc>"dpa():<cr>ret = 0<cr>return ret<cr># <esc>a}<esc>..<esc>kO<esc>?Problem<cr>$a {{<del><del>{<del><esc>/ret = 0<cr>j<leader>nh
+
 " }}}
