@@ -121,6 +121,9 @@ Bundle 'Lokaltog/vim-powerline'
 " Git wrapper
 Bundle 'tpope/vim-fugitive'
 
+" Snipmate
+Bundle "msanders/snipmate.vim"
+
 " Syntax and completion stuffs
 Bundle 'pangloss/vim-javascript'
 Bundle 'othree/html5.vim'
@@ -272,7 +275,7 @@ func! DeleteTrailingWS()
     %s/\s\+$//ge
     exe "normal `z"
 endfunc
-autocmd BufWrite *.py :call DeleteTrailingWS()
+au BufWrite *.py :call DeleteTrailingWS()
 
 " You didn't see that
 set mouse=ar
@@ -520,6 +523,17 @@ map <right> <nop>
 map <left> <nop>
 map <tab> <nop>
 
+" Python colon
+au Filetype python iabbr def def:<left>
+au Filetype python iabbr if if:<left>
+au Filetype python iabbr while while:<left>
+au Filetype python iabbr for for:<left>
+au Filetype python iabbr with with:<left>
+au Filetype python iabbr try try:<left>
+au Filetype python iabbr except except:<left>
+au Filetype python iabbr finally finally:<left>
+au Filetype python iabbr else else:
+au Filetype python iabbr elif elif:
 " }}}
 " {{{ Impractical vim
 " start a a euler problem plugins kills Vimgolf... require commenter thingie
