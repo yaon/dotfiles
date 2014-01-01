@@ -23,8 +23,8 @@ unsetopt no_match
 unsetopt beep
 
 setopt long_list_jobs
-
-export PROMPT="$USER %(?,%{$fg[green]%}%%%{$reset_color%},%{$fg[red]%}#%{$reset_color%}) "
+if [ $USER = 'yaon' ]; then; UUUU='vm'; else; UUUU=$USER; fi
+export PROMPT="$UUUU %(?,%{$fg[green]%}%%%{$reset_color%},%{$fg[red]%}#%{$reset_color%}) "
 export RPROMPT=''
 export PAGER='less'
 export LESS="-R"
@@ -162,11 +162,12 @@ alias -g NF='*(.om[1])' # newest file FIXME: allways .histfile ...
 alias lsL='ls -hlS **/*(.Lm+2)  | less' # list largest files  largest first  *N*
 alias -g G="| grep" #fuck this
 alias -g L="| less" #and that (i still like you two)
+gr() {grep -rn $1 .}
 
 alias gls='git log --stat'
 alias glr='git log --raw'
 alias glg='git log --graph'
-alias glo='git log --pretty=oneline'
+alias gll='git log --pretty=oneline'
 alias glp='git log -p'
 
 alias rsync-copy="rsync -av --progress -h"
@@ -222,7 +223,7 @@ alias ..3='cd ../../..'
 alias sou='source ~/.zshrc'
 alias age='echo $(( $(( $( date +%s ) - $( date -d "1991-09-23" +%s ) )) / 86400 / 365))'
 
-# (verry) advanced syntax correction
+# (very) advanced syntax correction
 alias please='sudo'
 alias wtf='dmesg'
 alias nomz='ps aux'
@@ -266,16 +267,18 @@ alias cda='cd /home/yaon/aureole'
 alias suj='evince ~/dev/suj.pdf &'
 alias sli='evince ~/dev/sli.pdf &'
 alias -g LOCPI='pi@192.168.0.46'
-alias pissh='ssh pi@93.19.13.24 -D 22233'
+alias pissh='ssh -p 22233 pi@93.19.13.24'
+alias euler='vim ~/euler/euler.py'
 
 # python
 alias py='python3.2'
 alias tree='tree -I __pycache__'
 
-#cool
+#
 alias shit='ls -shit'
 alias tmux="TERM=screen-256color-bce tmux"
-function ifd { "sudo ifup $1; sudo ifdown $1" }
+function ifd { sudo ifdown $1 && sudo ifup $1 }
+alias interfaces='sudo vim /etc/network/interfaces'
 # }}}
 # {{{ no scripts aloud
 # {{{ ttv
@@ -500,6 +503,14 @@ function how_do_i_prettyfact?
 function tips
 {
     echo 'import code; code.interact(local = locals())'
+    echo "ethtool -p eth0 # Blink eth0\'s LED so you can find it in the rat\'s next of server cables. Ctrl-C to stop. Thanks"
+    echo 'while :; do echo wub wub wub | espeak --stdout | play - pitch -400 bend .3,-600,.3 ; done # CLI generated dubstep. Thx @Butter_Tweets'
+}
+# }}}
+# {{{ whatdo
+function whatdo
+{
+    echo ''
 }
 # }}}
 # }}}

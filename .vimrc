@@ -103,7 +103,7 @@ endif
 
 " Plugin that helps to end certain structures automatically
 Bundle 'tpope/vim-endwise'
-Bundle 'kana/vim-smartinput'
+" Bundle 'kana/vim-smartinput'
 
 " Allign stuff
 Bundle 'godlygeek/tabular'
@@ -123,6 +123,9 @@ Bundle 'tpope/vim-fugitive'
 
 " Snipmate
 Bundle "msanders/snipmate.vim"
+
+" Diff on two directories
+Bundle "vim-scripts/DirDiff.vim"
 
 " Syntax and completion stuffs
 Bundle 'pangloss/vim-javascript'
@@ -229,7 +232,7 @@ set ignorecase
 " {{{ Edit, motion, indent...
 
 " Indent spaces
-set shiftwidth=4
+set shiftwidth=2
 
 " Number of spaces in a tab
 set tabstop=8
@@ -523,7 +526,10 @@ map <right> <nop>
 map <left> <nop>
 map <tab> <nop>
 
+" }}}
+" {{{ File types
 " Python colon
+au Filetype python se sw=4
 au Filetype python iabbr def def:<left>
 au Filetype python iabbr if if:<left>
 au Filetype python iabbr while while:<left>
@@ -538,6 +544,6 @@ au Filetype python iabbr elif elif:
 " {{{ Impractical vim
 " start a a euler problem plugins kills Vimgolf... require commenter thingie
 
-nmap <leader>se "ddiw:e ~/euler/problems.txt<cr>/Problem <c-r>"$<cr>V/Problem<cr>5ky:bp<cr>PV`]gc`]ji<cr>def p<esc>"dpa():<cr>ret = 0<cr>return ret<cr># <esc>a}<esc>..<esc>kO<esc>?Problem<cr>$a {{<del><del>{<del><esc>/ret = 0<cr>j<leader>nh
+nmap <leader>sne "ddiw:e ~/euler/problems.txt<cr>/Problem <c-r>"$<cr>V/Problem<cr>5ky:bp<cr>PV`]gc`]ji<cr>def p<esc>"dpa():<cr>ret = 0<cr>return ret<cr># <esc>a}<esc>..<esc>kO<esc>?Problem<cr>$a {{<del><del>{<del><esc>/ret = 0<cr>j<leader>nh
 
 " }}}
