@@ -224,17 +224,8 @@ alias sou='source ~/.zshrc'
 alias age='echo $(( $(( $( date +%s ) - $( date -d "1991-09-23" +%s ) )) / 86400 / 365))'
 
 # (very) advanced syntax correction
-alias please='sudo'
-alias wtf='dmesg'
-alias nomz='ps aux'
-alias nomnom='killall'
+alias please\ ='sudo '
 alias rtfm='man'
-alias donotwant='rm'
-alias dowant='cp'
-alias gtfo='mv'
-alias byes='exit'
-alias cya='reboot'
-alias kthxbai='halt'
 
 # {{{ pig
 rainbow(){ for i in {1..7}; do tput setaf $i; echo $@; tput sgr0; done; }
@@ -279,6 +270,7 @@ alias shit='ls -shit'
 alias tmux="TERM=screen-256color-bce tmux"
 function ifd { sudo ifdown $1 && sudo ifup $1 }
 alias interfaces='sudo vim /etc/network/interfaces'
+alias please='sudo `cat $HISTFILE | tail -n2 | head -n1 | cut -d ";" -f 2`'
 # }}}
 # {{{ no scripts aloud
 # {{{ ttv
