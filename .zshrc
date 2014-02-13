@@ -33,8 +33,7 @@ export EDITOR='vim'
 export WORDCHARS=''
 export GREP_OPTIONS='--color=auto'
 export GREP_COLOR='1;33'
-export LSCOLORS="Gxfxcxdxbxegedabagacad"
-export LC_CTYPE=en_US.UTF-8
+export LSCOLORS="Gxfxcxdxbxegedabagacad" export LC_CTYPE=en_US.UTF-8
 export LESS_TERMCAP_mb=$'\E[01;31m'       # begin blinking
 export LESS_TERMCAP_md=$'\E[01;38;5;74m'  # begin bold
 export LESS_TERMCAP_me=$'\E[0m'           # end mode
@@ -51,7 +50,6 @@ setxkbmap us
 
 autoload -Uz compinit
 compinit
-
 unsetopt menu_complete   # do not autoselect the first completion entry
 unsetopt flowcontrol
 setopt auto_menu         # show completion menu on succesive tab press
@@ -148,7 +146,6 @@ alias valgrind='valgrind -v --leak-check=full --show-reachable=yes\
 alias ll='ls -l'
 alias la='ls -la'
 alias j='jobs'
-alias emacs='emacs -nw'
 alias rm='rm -i' # dem safety
 alias cb='cd .. && ls'
 alias mvd='mv ~/Downloads/* ./'
@@ -217,15 +214,14 @@ alias notepad='vim'
 alias world='vim'
 alias notepad++='vim'
 alias g='git'
+alias rtfm='man'
 alias ..1='cd ..'
 alias ..2='cd ../..'
 alias ..3='cd ../../..'
 alias sou='source ~/.zshrc'
 alias age='echo $(( $(( $( date +%s ) - $( date -d "1991-09-23" +%s ) )) / 86400 / 365))'
-
-# (very) advanced syntax correction
-alias please\ ='sudo '
-alias rtfm='man'
+# alias please='sudo '
+alias please='sudo `cat $HISTFILE | tail -n2 | head -n1 | cut -d ";" -f 2`'
 
 # {{{ pig
 rainbow(){ for i in {1..7}; do tput setaf $i; echo $@; tput sgr0; done; }
@@ -270,7 +266,16 @@ alias shit='ls -shit'
 alias tmux="TERM=screen-256color-bce tmux"
 function ifd { sudo ifdown $1 && sudo ifup $1 }
 alias interfaces='sudo vim /etc/network/interfaces'
-alias please='sudo `cat $HISTFILE | tail -n2 | head -n1 | cut -d ";" -f 2`'
+
+# k <3
+function kcc
+{
+  gcc -c $1 -o bootsect.o &&
+  ld bootsect.o -o bootsect --oformat binary -Ttext 0x7c00 &&
+  qemu-system-i386 -fda bootsect
+}
+
+
 # }}}
 # {{{ no scripts aloud
 # {{{ ttv

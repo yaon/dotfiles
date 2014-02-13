@@ -98,7 +98,7 @@ Bundle 'terryma/vim-expand-region'
 
 " Yank history
 if !windows
-    "Bundle 'vim-scripts/YankRing.vim'
+    Bundle 'vim-scripts/YankRing.vim'
 endif
 
 " Plugin that helps to end certain structures automatically
@@ -139,6 +139,8 @@ filetype plugin on
 filetype plugin indent on
 filetype on
 syntax on
+
+
 
 " }}}
 " {{{ Plugin options/mappings
@@ -190,6 +192,9 @@ map <leader>gd Gdiff<cr>
 " let g:solarized_termcolors=256
 " colorscheme solarized
 colorscheme jellybeans
+
+
+
 
 " }}}
 " {{{ Bottom things
@@ -257,7 +262,7 @@ set expandtab
 " Indent options
 set cinoptions=>s,e0,n0,f0,{0,}0,^0,:s,=s,ps,t0,(0,u0,)20,*80,g0
 
-" Do not insert comment automatically 
+" Do not insert comment automatically
 autocmd FileType * setlocal fo-=c fo-=r fo-=o
 
 " Completion options
@@ -410,6 +415,9 @@ endfunction
 "Source .vimrc on close, kills my term...
 "autocmd bufwritepost .vimrc source $MYVIMRC
 
+" Magnificent search colors, here because reasons
+hi Search ctermfg=214 ctermbg=236 cterm=bold
+
 " }}}
 " {{{ Map
 
@@ -547,3 +555,4 @@ au Filetype python iabbr elif elif:
 nmap <leader>sne "ddiw:e ~/euler/problems.txt<cr>/Problem <c-r>"$<cr>V/Problem<cr>5ky:bp<cr>PV`]gc`]ji<cr>def p<esc>"dpa():<cr>ret = 0<cr>return ret<cr># <esc>a}<esc>..<esc>kO<esc>?Problem<cr>$a {{<del><del>{<del><esc>/ret = 0<cr>j<leader>nh
 
 " }}}
+
