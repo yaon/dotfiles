@@ -125,15 +125,15 @@ Bundle 'tpope/vim-fugitive'
 Bundle "msanders/snipmate.vim"
 
 " Diff on two directories
-Bundle "vim-scripts/DirDiff.vim"
+" Bundle "vim-scripts/DirDiff.vim"
 
 " Syntax and completion stuffs
-Bundle 'pangloss/vim-javascript'
-Bundle 'othree/html5.vim'
-Bundle 'sudar/vim-arduino-syntax'
+" Bundle 'pangloss/vim-javascript'
+" Bundle 'othree/html5.vim'
+" Bundle 'sudar/vim-arduino-syntax'
 Bundle 'hynek/vim-python-pep8-indent'
 Bundle 'hdima/python-syntax'
-Bundle 'leafgarland/typescript-vim'
+" Bundle 'leafgarland/typescript-vim'
 
 filetype plugin on
 filetype plugin indent on
@@ -151,10 +151,11 @@ else
     let g:yankring_history_dir = '~/.vim/tmp'
 endif
 
-let g:jellybeans_background_color_256='256'
+" let g:jellybeans_background_color_256='256'
 
 let g:syntastic_cpp_compiler_options = ' -std=c++0x'
 let g:syntastic_python_python_exe = 'python3'
+let g:syntastic_python_checkers = []
 
 let python_highlight_all = 1
 
@@ -303,10 +304,12 @@ set showbreak=\
 " Spellcheking
 " highlight SpellBad term=underline gui=undercurl
 
-" Line numbers in insert mode and relative in command mode
+" 7.4 Relative line numbers
 set relativenumber
-autocmd InsertEnter * :set number
-autocmd InsertLeave * :set relativenumber
+set number
+" Line numbers in insert mode and relative in command mode
+" autocmd InsertEnter * :set number
+" autocmd InsertLeave * :set relativenumber
 
 " Cool looking vertical splits
 set fillchars=vert:│
@@ -555,4 +558,3 @@ au Filetype python iabbr elif elif:
 nmap <leader>sne "ddiw:e ~/euler/problems.txt<cr>/Problem <c-r>"$<cr>V/Problem<cr>5ky:bp<cr>PV`]gc`]ji<cr>def p<esc>"dpa():<cr>ret = 0<cr>return ret<cr># <esc>a}<esc>..<esc>kO<esc>?Problem<cr>$a {{<del><del>{<del><esc>/ret = 0<cr>j<leader>nh
 
 " }}}
-
