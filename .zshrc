@@ -1,3 +1,11 @@
+# {{{ Kaneton exports
+# export KANETON_USER="group30"
+export KANETON_USER="my_test"
+export KANETON_HOST="linux/ia32"
+export KANETON_PLATFORM="ibm-pc"
+export KANETON_ARCHITECTURE="ia32/educational"
+export KANETON_PYTHON="/usr/bin/python"
+# }}}
 # Options, exports and stuff {{{
 
 autoload -U colors && colors
@@ -23,13 +31,13 @@ unsetopt no_match
 unsetopt beep
 
 setopt long_list_jobs
-if [ $USER = 'yaon' ]; then; UUUU='vm'; else; UUUU=$USER; fi
+if [ $USER = 'yaon' ]; then; UUUU='i'; else; UUUU=$USER; fi
 export PROMPT="$UUUU %(?,%{$fg[green]%}%%%{$reset_color%},%{$fg[red]%}#%{$reset_color%}) "
 export RPROMPT=''
 export PAGER='less'
 export LESS="-R"
 export PATH="/sbin:$PATH"
-export EDITOR='vim'
+export EDITOR='/usr/local/bin/vim'
 export WORDCHARS=''
 export GREP_OPTIONS='--color=auto'
 export GREP_COLOR='1;33'
@@ -159,7 +167,7 @@ alias -g NF='*(.om[1])' # newest file FIXME: allways .histfile ...
 alias lsL='ls -hlS **/*(.Lm+2)  | less' # list largest files  largest first  *N*
 alias -g G="| grep" #fuck this
 alias -g L="| less" #and that (i still like you two)
-gr() {grep -rn $1 .}
+gr() {grep -rnI $1 .}
 
 alias gls='git log --stat'
 alias glr='git log --raw'
@@ -202,17 +210,17 @@ alias mh='make -j4 2> /tmp/mh; cat /tmp/mh | head -n 25'
 ## advanced syntax correction
 alias gf='fg'
 alias sv='sudo vim'
-alias v='vim'
-alias jim='vim'
-alias bim='vim'
-alias vin='vim'
-alias nano='vim'
-alias pico='vim'
-alias emacs='vim'
-alias gedit='vim'
-alias notepad='vim'
-alias world='vim'
-alias notepad++='vim'
+alias v='/usr/local/bin/vim'
+alias jim='/usr/local/bin/vim'
+alias bim='/usr/local/bin/vim'
+alias vin='/usr/local/bin/vim'
+alias nano='/usr/local/bin/vim'
+alias pico='/usr/local/bin/vim'
+alias emacs='/usr/local/bin/vim'
+alias gedit='/usr/local/bin/vim'
+alias notepad='/usr/local/bin/vim'
+alias world='/usr/local/bin/vim'
+alias notepad++='/usr/local/bin/vim'
 alias g='git'
 alias rtfm='man'
 alias ..1='cd ..'
@@ -266,14 +274,6 @@ alias shit='ls -shit'
 alias tmux="TERM=screen-256color-bce tmux"
 function ifd { sudo ifdown $1 && sudo ifup $1 }
 alias interfaces='sudo vim /etc/network/interfaces'
-
-# k <3
-function kcc
-{
-  gcc -c $1 -o bootsect.o &&
-  ld bootsect.o -o bootsect --oformat binary -Ttext 0x7c00 &&
-  qemu-system-i386 -fda bootsect
-}
 
 
 # }}}
@@ -502,6 +502,7 @@ function tips
     echo 'import code; code.interact(local = locals())'
     echo "ethtool -p eth0 # Blink eth0\'s LED so you can find it in the rat\'s next of server cables. Ctrl-C to stop. Thanks"
     echo 'while :; do echo wub wub wub | espeak --stdout | play - pitch -400 bend .3,-600,.3 ; done # CLI generated dubstep. Thx @Butter_Tweets'
+    echo 'quemu -noshotdown -noreboot'
 }
 # }}}
 # {{{ whatdo
@@ -510,4 +511,22 @@ function whatdo
     echo ''
 }
 # }}}
+# }}}
+# {{{ k <3
+function kcc
+{
+  gcc -c $1 -o bootsect.o &&
+  ld bootsect.o -o bootsect --oformat binary -Ttext 0x7c00 &&
+  qemu-system-i386 -fda bootsect
+} # target remote : 1234, add-symbol-file ex.0 0x7c00, b _start c layout source 
+
+alias sl='ls'
+add_alias() { echo "alias $1='$2'" >> ~/.zshrc }
+alias pewad='pwd'
+alias kmake='cd ~/k && make && make build && make install'
+alias ktest='KANETON_USER=my_test && cd ~/k && make && make build && \
+make install && cd - && qemu -fda \
+/home/yaon/k/environment/profile/user/my_test/my_test.img'
+alias kqdb='qemu-system-i386 -fda /home/yaon/k/environment/profile/user/my_test/my_test.img -s -S &'
+alias kgdb='gdb /home/yaon/k/kaneton/kaneton -tui' #target remote :1234
 # }}}

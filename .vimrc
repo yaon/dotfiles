@@ -116,16 +116,17 @@ Bundle 'nanotech/jellybeans.vim'
 Bundle 'altercation/vim-colors-solarized'
 
 " Great status line
-Bundle 'Lokaltog/vim-powerline'
+" Bundle 'Lokaltog/vim-powerline'
+Bundle 'bling/vim-airline'
 
 " Git wrapper
 Bundle 'tpope/vim-fugitive'
 
 " Snipmate
-Bundle "msanders/snipmate.vim"
+" Bundle 'msanders/snipmate.vim'
 
 " Diff on two directories
-" Bundle "vim-scripts/DirDiff.vim"
+" Bundle 'vim-scripts/DirDiff.vim'
 
 " Syntax and completion stuffs
 " Bundle 'pangloss/vim-javascript'
@@ -133,11 +134,10 @@ Bundle "msanders/snipmate.vim"
 " Bundle 'sudar/vim-arduino-syntax'
 Bundle 'hynek/vim-python-pep8-indent'
 Bundle 'hdima/python-syntax'
+Bundle 'vim-scripts/armasm'
 " Bundle 'leafgarland/typescript-vim'
 
-filetype plugin on
 filetype plugin indent on
-filetype on
 syntax on
 
 
@@ -244,7 +244,7 @@ set shiftwidth=2
 set tabstop=8
 
 " Number of spaces inserted when pressing <TAB>
-set softtabstop=4
+set softtabstop=8
 
 " <TAB> goes to indent level
 set smarttab
@@ -319,7 +319,7 @@ au VimResized * exe "normal! \<c-w>="
 
 " Show trailing whitespaces and tabs
 set list
-set listchars=tab:>\ ,trail:\ ,
+set listchars=tab:▸\ ,trail:\ ,
 
 " Vertical line at textwidth
 set colorcolumn=+1
@@ -393,35 +393,52 @@ endfunction
 " include colon in filenames (for gf)
 set isfname+=:
 
-" ----- Emulate 'gf' but recognize :line format -----
-function! GotoFile(w)
-    let curword = expand("<cfile>")
-    if (strlen(curword) == 0)
-        return
-    endif
-    let matchstart = match(curword, ':\d\+$')
-    if matchstart > 0
-        let pos = '+' . strpart(curword, matchstart+1)
-        let fname = strpart(curword, 0, matchstart)
-    elseif
-        let pos = ""
-        let fname = curword
-    endif
-    " Open new window if requested
-    if a:w == "new"
-        new
-    endif
-    " Use 'find' so path is searched like 'gf' would
-    execute 'find ' . pos . ' ' . fname
-endfunction
+" " ----- Emulate 'gf' but recognize :line format -----
+" function! GotoFile(w)
+"     let curword = expand("<cfile>")
+"     if (strlen(curword) == 0)
+"         return
+"     endif
+"     let matchstart = match(curword, ':\d\+$')
+"     if matchstart > 0
+"         let pos = '+' . strpart(curword, matchstart+1)
+"         let fname = strpart(curword, 0, matchstart)
+"     elseif
+"         let pos = ""
+"         let fname = curword
+"     endif
+"     " Open new window if requested
+"     if a:w == "new"
+"         new
+"     endif
+"     " Use 'find' so path is searched like 'gf' would
+"     execute 'find ' . pos . ' ' . fname
+" endfunction
 
 "Source .vimrc on close, kills my term...
 "autocmd bufwritepost .vimrc source $MYVIMRC
 
+
+" }}}
+"{{{ Colors
+
 " Magnificent search colors, here because reasons
 hi Search ctermfg=214 ctermbg=236 cterm=bold
 
-" }}}
+
+" use an orange cursor in insert mode
+let &t_SI = "\<Esc>]12;white\x7"
+" use a red cursor otherwise
+let &t_EI = "\<Esc>]12;green\x7"
+silent !echo -ne "\033]12;white\007"
+" reset cursor when vim exits
+autocmd VimLeave * silent !echo -ne "\003]12;white\007"
+" use \003]12;gray\007 for gnome-terminal
+
+match cFormat '\s\+$'
+hi cFormat ctermbg=240
+
+"}}}
 " {{{ Map
 
 " Gold
@@ -502,9 +519,9 @@ vmap <silent> # :call VisualSelection('b')<cr>
 map <leader>pp :setlocal paste!<cr>
 
 " Override vim commands 'gf', '^Wf', '^W^F'
-nmap gf :call GotoFile("")<cr>
-nmap <C-W>f :call GotoFile("new")<cr>
-nmap <C-W><C-F> :call GotoFile("new")<cr>
+" nmap gf :call GotoFile("")<cr>
+" nmap <C-W>f :call GotoFile("new")<cr>
+" nmap <C-W><C-F> :call GotoFile("new")<cr>
 
 " Arduino
 map <leader>ia :!sudo ino build && sudo ino upload && sudo ino serial<cr>
@@ -530,12 +547,32 @@ map <leader>V V`]
 " Reload file
 map <leader>lf :edit!<cr>
 
+imap <C-l> <right>
+imap <C-h> <left>
+imap <C-k> <up>
+imap <C-j> <down>
+
 " don't
-map <up> <nop>
-map <down> <nop>
-map <right> <nop>
-map <left> <nop>
-map <tab> <nop>
+" map <up> <nop>
+" map <down> <nop>
+" map <right> <nop>
+" map <left> <nop>
+" map <tab> <nop>
+
+" Erase and paste in visual mode
+vmap p "_dP
+" vmap p <esc>:let @z=@0<CR>gvd"zP
+
+" Open CrtlP in new vsplit
+map <leader>sp :vs<CR>:CtrlP<CR>
+
+" Idea !
+map <CR> <C-d>
+map <BS> <C-u>
+
+" fold indent mode
+map <leader>fi :se foldmethod=indent<CR>
+map <leader>fm :se foldmethod=marker<CR>
 
 " }}}
 " {{{ File types
