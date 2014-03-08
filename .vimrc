@@ -156,6 +156,8 @@ endif
 let g:syntastic_cpp_compiler_options = ' -std=c++0x'
 let g:syntastic_python_python_exe = 'python3'
 let g:syntastic_python_checkers = []
+let g:syntastic_c_include_dirs = ['/home/yaon/k/kaneton/include']
+let g:syntastic_c_check_header = 1
 
 let python_highlight_all = 1
 
@@ -491,6 +493,8 @@ map <M-k> :resize +2<cr>
 map <M-j> :resize -2<cr>
 map <M-h> :vertical resize +2<cr>
 map <M-l> :vertical resize -2<cr>
+
+map <leader>rs :vertical resize +41<CR>
 
 " Faster way to move between windows
 map <C-j> <C-W>j
