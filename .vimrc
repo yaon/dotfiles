@@ -295,6 +295,10 @@ set mousemodel=extend
 set mousefocus
 set mousehide
 
+" Move and split
+set splitright
+set splitbelow
+
 " }}}
 " {{{ Prettify
 
@@ -589,7 +593,8 @@ imap <c-j> <down>
 imap <c-k> <up>
 imap <c-l> <right>
 
-
+" grep
+map <leader>gr :grep -rnI  .<left><left>
 
 " }}}
 " {{{ File types
