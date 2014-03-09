@@ -158,6 +158,7 @@ let g:syntastic_python_python_exe = 'python3'
 let g:syntastic_python_checkers = []
 let g:syntastic_c_include_dirs = ['/home/yaon/k/kaneton/include']
 let g:syntastic_c_check_header = 1
+" let g:syntastic_warning_symbol -= '-Wint-to-pointer-cast'
 
 let python_highlight_all = 1
 
@@ -321,7 +322,7 @@ au VimResized * exe "normal! \<c-w>="
 
 " Show trailing whitespaces and tabs
 set list
-set listchars=tab:▸\ ,trail:\ ,
+set listchars=tab:▸\ ,
 
 " Vertical line at textwidth
 set colorcolumn=+1
@@ -494,7 +495,7 @@ map <M-j> :resize -2<cr>
 map <M-h> :vertical resize +2<cr>
 map <M-l> :vertical resize -2<cr>
 
-map <leader>rs :vertical resize +41<CR>
+map <leader>s <c-w>w:vertical resize +41<CR>
 
 " Faster way to move between windows
 map <C-j> <C-W>j
@@ -578,6 +579,13 @@ map <BS> <C-u>
 map <leader>fi :se foldmethod=indent<CR>
 map <leader>fm :se foldmethod=marker<CR>
 
+" For ctrlp and history
+cmap <c-h> <left>
+cmap <c-j> <down>
+cmap <c-k> <up>
+cmap <c-l> <right>
+
+
 " }}}
 " {{{ File types
 " Python colon
@@ -596,6 +604,6 @@ au Filetype python iabbr elif elif:
 " {{{ Impractical vim
 " start a a euler problem plugins kills Vimgolf... require commenter thingie
 
-nmap <leader>sne "ddiw:e ~/euler/problems.txt<cr>/Problem <c-r>"$<cr>V/Problem<cr>5ky:bp<cr>PV`]gc`]ji<cr>def p<esc>"dpa():<cr>ret = 0<cr>return ret<cr># <esc>a}<esc>..<esc>kO<esc>?Problem<cr>$a {{<del><del>{<del><esc>/ret = 0<cr>j<leader>nh
+nmap <leader>Sne "ddiw:e ~/euler/problems.txt<cr>/Problem <c-r>"$<cr>V/Problem<cr>5ky:bp<cr>PV`]gc`]ji<cr>def p<esc>"dpa():<cr>ret = 0<cr>return ret<cr># <esc>a}<esc>..<esc>kO<esc>?Problem<cr>$a {{<del><del>{<del><esc>/ret = 0<cr>j<leader>nh
 
 " }}}
