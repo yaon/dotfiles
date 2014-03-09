@@ -579,11 +579,16 @@ map <BS> <C-u>
 map <leader>fi :se foldmethod=indent<CR>
 map <leader>fm :se foldmethod=marker<CR>
 
-" For ctrlp and history
+" For ctrlp and history n stuff
 cmap <c-h> <left>
 cmap <c-j> <down>
 cmap <c-k> <up>
 cmap <c-l> <right>
+imap <c-h> <left>
+imap <c-j> <down>
+imap <c-k> <up>
+imap <c-l> <right>
+
 
 
 " }}}
