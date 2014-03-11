@@ -1,6 +1,5 @@
-" Install
-" git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
-" :BundleInstall
+" Install :
+" git clone https://github.com/MarcWeber/vim-addon-manager ~/.vim/vad
 
 " {{{ Vim options
 
@@ -62,85 +61,72 @@ endif
 ""}}}
 " Plugins {{{
 
-filetype off
+set nocompatible | filetype indent plugin on | syn on
 
 if windows
-    set rtp+=~/vimfiles/bundle/vundle/
-    call vundle#rc('$HOME/vimfiles/bundle/')
+  set rtp+=~/vimfiles/vad
 else
-    set rtp+=~/.vim/bundle/vundle/
-    call vundle#rc()
+  set rtp+=~/.vim/vad
 endif
 
-" Vim bundle manager
-Bundle 'gmarik/vundle'
+let addons = []
 
-" Explore files
-Bundle 'scrooloose/nerdtree'
-if !windows
-    Bundle 'kien/ctrlp.vim'
-endif
+" Navigate between files
+let addons += ['github:scrooloose/nerdtree']
+
+" File finder
+let addons += ['github:kien/ctrlp.vim']
 
 " Easy commenting
-Bundle 'scrooloose/nerdcommenter'
-Bundle 'tpope/vim-commentary'
+let addons += ['github:scrooloose/nerdcommenter']
+let addons += ['github:tpope/vim-commentary']
 
-" Compile check on save
-if !windows
-    Bundle 'scrooloose/syntastic'
-endif
+" Syntax check on save
+let addons += ['github:scrooloose/syntastic']
 
-" Plugin for deleting, changing, and adding surroundings
-Bundle 'tpope/vim-surround'
+" 
+let addons += ['github:tpope/vim-surround']
 
-" Press + to expand the visual selection and _ to shrink it.
-Bundle 'terryma/vim-expand-region'
+" Press +/- to shrink/expand visual selection
+let addons += ['github:terryma/vim-expand-region']
 
 " Yank history
-if !windows
-    Bundle 'vim-scripts/YankRing.vim'
-endif
+let addons += ['github:vim-scripts/YankRing.vim']
 
-" Plugin that helps to end certain structures automatically
-Bundle 'tpope/vim-endwise'
-" Bundle 'kana/vim-smartinput'
+" End certain sutructures automatically
+let addons += ['github:tpope/vim-endwise']
+
+" End {("'
+" let addons += ['github:kana/vim-smartinput']
 
 " Allign stuff
-Bundle 'godlygeek/tabular'
+let addons += ['github:godlygeek/tabular']
 
-" Makes . command work after a plugin map
-Bundle 'tpope/vim-repeat'
+" Make . work for plugin things
+let addons += ['github:tpope/vim-repeat']
 
-" A colorful, dark color scheme
-Bundle 'nanotech/jellybeans.vim'
-Bundle 'altercation/vim-colors-solarized'
+" A colorful, dark color scheme for Vim
+let addons += ['github:nanotech/jellybeans.vim'] 
+let addons += ['github:altercation/vim-colors-solarized']
 
-" Great status line
-" Bundle 'Lokaltog/vim-powerline'
-Bundle 'bling/vim-airline'
+" Status bar
+let addons += ['github:bling/vim-airline']
+" let addons += ['github:Lokaltog/vim-powerline']
 
-" Git wrapper
-Bundle 'tpope/vim-fugitive'
+" Git vrapper
+let addons += ['github:tpope/vim-fugitive']
 
-" Snipmate
-" Bundle 'msanders/snipmate.vim'
+" Vimdiff on directories
+" 'github:vim-scripts/DirDiff.vim'
 
-" Diff on two directories
-" Bundle 'vim-scripts/DirDiff.vim'
+" Syntax stuff
+let addons += ['github:hynek/vim-python-pep8-indent']
+let addons += ['github:hdima/python-syntax']
+let addons += ['github:vim-scripts/armasm']
 
-" Syntax and completion stuffs
-" Bundle 'pangloss/vim-javascript'
-" Bundle 'othree/html5.vim'
-" Bundle 'sudar/vim-arduino-syntax'
-Bundle 'hynek/vim-python-pep8-indent'
-Bundle 'hdima/python-syntax'
-Bundle 'vim-scripts/armasm'
-" Bundle 'leafgarland/typescript-vim'
+call vam#ActivateAddons(addons, {'auto_install' : 1})
 
-filetype plugin indent on
-syntax on
-
-
+VAMActivate tlib matchit.zip
 
 " }}}
 " {{{ Plugin options/mappings
@@ -442,8 +428,8 @@ silent !echo -ne "\033]12;white\007"
 autocmd VimLeave * silent !echo -ne "\003]12;white\007"
 " use \003]12;gray\007 for gnome-terminal
 
-match cFormat '\s\+$'
-hi cFormat ctermbg=240
+"match cFormat '\s\+$'
+"hi cFormat ctermbg=240
 
 "}}}
 " {{{ Map
@@ -499,7 +485,7 @@ map <M-j> :resize -2<cr>
 map <M-h> :vertical resize +2<cr>
 map <M-l> :vertical resize -2<cr>
 
-map <leader>s <c-w>w:vertical resize +41<CR>
+map <leader>jj <c-w>w:vertical resize +41<CR>
 
 " Faster way to move between windows
 map <C-j> <C-W>j
@@ -594,7 +580,7 @@ imap <c-k> <up>
 imap <c-l> <right>
 
 " grep
-map <leader>gr :grep -rnI  .<left><left>
+map <leader>gr :!grep --color=auto -rnI  .<left><left>
 
 " }}}
 " {{{ File types
