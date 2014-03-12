@@ -84,7 +84,7 @@ let addons += ['github:tpope/vim-commentary']
 " Syntax check on save
 let addons += ['github:scrooloose/syntastic']
 
-" 
+"
 let addons += ['github:tpope/vim-surround']
 
 " Press +/- to shrink/expand visual selection
@@ -96,7 +96,7 @@ let addons += ['github:vim-scripts/YankRing.vim']
 " End certain sutructures automatically
 let addons += ['github:tpope/vim-endwise']
 
-" End {("'
+" End {("', annoying
 " let addons += ['github:kana/vim-smartinput']
 
 " Allign stuff
@@ -106,7 +106,7 @@ let addons += ['github:godlygeek/tabular']
 let addons += ['github:tpope/vim-repeat']
 
 " A colorful, dark color scheme for Vim
-let addons += ['github:nanotech/jellybeans.vim'] 
+let addons += ['github:nanotech/jellybeans.vim']
 let addons += ['github:altercation/vim-colors-solarized']
 
 " Status bar
@@ -117,7 +117,7 @@ let addons += ['github:bling/vim-airline']
 let addons += ['github:tpope/vim-fugitive']
 
 " Vimdiff on directories
-" 'github:vim-scripts/DirDiff.vim'
+" let addons += ['github:vim-scripts/DirDiff.vim']
 
 " Syntax stuff
 let addons += ['github:hynek/vim-python-pep8-indent']
@@ -580,7 +580,7 @@ imap <c-k> <up>
 imap <c-l> <right>
 
 " grep
-map <leader>gr :!grep --color=auto -rnI  .<left><left>
+map <leader>gr :!grep --color=auto -rnI '' .<left><left><left>
 
 " }}}
 " {{{ File types
