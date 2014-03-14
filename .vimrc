@@ -33,8 +33,7 @@ set t_vb=
 let g:is_posix = 1
 
 " leader on , and space
-let mapleader=','
-map <space> ,
+let mapleader = "\<Space>"
 
 " }}}
 "{{{ Windows
@@ -83,6 +82,10 @@ let addons += ['github:tpope/vim-commentary']
 
 " Syntax check on save
 let addons += ['github:scrooloose/syntastic']
+
+" Autocompletion
+" let addons += ['github:vim-scripts/ActionScript-3-Omnicomplete']
+let addons += ['github:vim-scripts/AutoComplPop']
 
 "
 let addons += ['github:tpope/vim-surround']
@@ -183,8 +186,23 @@ map <leader>gd Gdiff<cr>
 " colorscheme solarized
 colorscheme jellybeans
 
+" Where the tags files are present
+set tags+=~/k/tags,
 
+" OmniCppComplete
+let OmniCpp_NamespaceSearch = 1
+let OmniCpp_GlobalScopeSearch = 1
+let OmniCpp_ShowAccess = 1
+let OmniCpp_ShowPrototypeInAbbr = 1 " show function parameters
+let OmniCpp_MayCompleteDot = 1      " autocomplete after .
+let OmniCpp_MayCompleteArrow = 1    " autocomplete after ->
+let OmniCpp_MayCompleteScope = 1    " autocomplete after ::
+let OmniCpp_DefaultNamespaces = ["std", "_GLIBCXX_STD"]
+" automatically open and close the popup menu / preview window
+au CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
 
+autocmd VimEnter * AirlineTheme tomorrow
+autocmd VimEnter * AirlineToggleWhitespace
 
 " }}}
 " {{{ Bottom things
