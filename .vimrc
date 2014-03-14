@@ -203,6 +203,7 @@ au CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
 
 autocmd VimEnter * AirlineTheme tomorrow
 autocmd VimEnter * AirlineToggleWhitespace
+let g:airline#extensions#syntastic#enabled = 0
 
 " }}}
 " {{{ Bottom things
@@ -446,8 +447,8 @@ silent !echo -ne "\033]12;white\007"
 autocmd VimLeave * silent !echo -ne "\003]12;white\007"
 " use \003]12;gray\007 for gnome-terminal
 
-"match cFormat '\s\+$'
-"hi cFormat ctermbg=240
+match PmenuThumb '\s\+$'
+hi cFormat ctermbg=240
 
 "}}}
 " {{{ Map
