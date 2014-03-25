@@ -85,7 +85,7 @@ let addons += ['github:scrooloose/syntastic']
 
 " Autocompletion
 " let addons += ['github:vim-scripts/ActionScript-3-Omnicomplete']
-let addons += ['github:vim-scripts/AutoComplPop']
+" let addons += ['github:vim-scripts/AutoComplPop']
 
 "
 let addons += ['github:tpope/vim-surround']
@@ -189,21 +189,25 @@ colorscheme jellybeans
 " Where the tags files are present
 set tags+=~/k/tags,
 
-" OmniCppComplete
-let OmniCpp_NamespaceSearch = 1
-let OmniCpp_GlobalScopeSearch = 1
-let OmniCpp_ShowAccess = 1
-let OmniCpp_ShowPrototypeInAbbr = 1 " show function parameters
-let OmniCpp_MayCompleteDot = 1      " autocomplete after .
-let OmniCpp_MayCompleteArrow = 1    " autocomplete after ->
-let OmniCpp_MayCompleteScope = 1    " autocomplete after ::
-let OmniCpp_DefaultNamespaces = ["std", "_GLIBCXX_STD"]
-" automatically open and close the popup menu / preview window
-au CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
+" " OmniCppComplete
+" let OmniCpp_NamespaceSearch = 1
+" let OmniCpp_GlobalScopeSearch = 1
+" let OmniCpp_ShowAccess = 1
+" let OmniCpp_ShowPrototypeInAbbr = 1 " show function parameters
+" let OmniCpp_MayCompleteDot = 1      " autocomplete after .
+" let OmniCpp_MayCompleteArrow = 1    " autocomplete after ->
+" let OmniCpp_MayCompleteScope = 1    " autocomplete after ::
+" let OmniCpp_DefaultNamespaces = ["std", "_GLIBCXX_STD"]
+" " automatically open and close the popup menu / preview window
+" au CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
 
-autocmd VimEnter * AirlineTheme tomorrow
-autocmd VimEnter * AirlineToggleWhitespace
+" Airline
 let g:airline#extensions#syntastic#enabled = 0
+let g:airline#extensions#whitespace#enabled = 1
+" let g:airline_theme='tomorrow'
+let g:airline_theme='wombat'
+let g:airline#extensions#whitespace#checks = []
+
 
 " }}}
 " {{{ Bottom things
@@ -435,8 +439,7 @@ set isfname+=:
 "{{{ Colors
 
 " Magnificent search colors, here because reasons
-hi Search ctermfg=214 ctermbg=236 cterm=bold
-
+hi Search ctermfg=214 ctermbg=236 cterm=bold 
 
 " use an orange cursor in insert mode
 let &t_SI = "\<Esc>]12;white\x7"
@@ -447,7 +450,7 @@ silent !echo -ne "\033]12;white\007"
 autocmd VimLeave * silent !echo -ne "\003]12;white\007"
 " use \003]12;gray\007 for gnome-terminal
 
-match PmenuThumb '\s\+$'
+match PmenuSbar '\s\+$'
 hi cFormat ctermbg=240
 
 "}}}
@@ -455,6 +458,9 @@ hi cFormat ctermbg=240
 
 " Gold
 map ; :
+
+" Use capslock too sir
+imap jk <esc>
 
 " Visual studio mode with vsvim
     "behave mswin
