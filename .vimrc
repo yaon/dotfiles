@@ -193,17 +193,18 @@ map <leader>ch :ChooseWin<CR>
 colorscheme jellybeans
 
 " Where the tags files are present
-" set tags+=~/k/tags,
+" set tags+=~/k/tags, fuck this
 
 " " OmniCppComplete
-let OmniCpp_NamespaceSearch = 1
-let OmniCpp_GlobalScopeSearch = 1
-let OmniCpp_ShowAccess = 1
+let OmniCpp_NamespaceSearch     = 1
+let OmniCpp_GlobalScopeSearch   = 1
+let OmniCpp_ShowAccess          = 1
 let OmniCpp_ShowPrototypeInAbbr = 1 " show function parameters
-let OmniCpp_MayCompleteDot = 1      " autocomplete after .
-let OmniCpp_MayCompleteArrow = 1    " autocomplete after ->
-let OmniCpp_MayCompleteScope = 1    " autocomplete after ::
-let OmniCpp_DefaultNamespaces = ["std", "_GLIBCXX_STD"]
+let OmniCpp_MayCompleteDot      = 1 " autocomplete after .
+let OmniCpp_MayCompleteArrow    = 1 " autocomplete after ->
+let OmniCpp_MayCompleteScope    = 1 " autocomplete after ::
+let OmniCpp_DefaultNamespaces   = ["std", "_GLIBCXX_STD"]
+
 " automatically open and close the popup menu / preview window
 au CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
 
@@ -213,7 +214,6 @@ let g:airline#extensions#whitespace#enabled = 1
 " let g:airline_theme='tomorrow'
 let g:airline_theme='wombat'
 let g:airline#extensions#whitespace#checks = []
-
 
 " }}}
 " {{{ Bottom things
@@ -445,7 +445,7 @@ set isfname+=:
 "{{{ Colors
 
 " Magnificent search colors, here because reasons
-hi Search ctermfg=214 ctermbg=236 cterm=bold 
+hi Search ctermfg=214 ctermbg=236 cterm=bold
 
 " use an orange cursor in insert mode
 let &t_SI = "\<Esc>]12;white\x7"
@@ -510,11 +510,11 @@ map <leader>mk :make<cr>
 " Clean dirty disgusting pig stuff
 map <leader>ric :retab<cr>gg=G<cr>:%s/[\r \t]\+$//<cr>
 
-" Split resize #TODO
-map <M-k> :resize +2<cr>
-map <M-j> :resize -2<cr>
-map <M-h> :vertical resize +2<cr>
-map <M-l> :vertical resize -2<cr>
+" Split resize
+map <C-up> :resize +2<cr>
+map <C-down> :resize -2<cr>
+map <C-left> :vertical resize +2<cr>
+map <C-right> :vertical resize -2<cr>
 
 map <leader>jj <c-w>w:vertical resize +41<CR>
 
@@ -572,11 +572,6 @@ map <leader>v v`]
 " Reload file
 map <leader>lf :edit!<cr>
 
-imap <C-l> <right>
-imap <C-h> <left>
-imap <C-k> <up>
-imap <C-j> <down>
-
 " don't
 " map <up>    <nop>
 " map <down>  <nop>
@@ -600,15 +595,6 @@ map <BS> <C-u>
 map <leader>fi :se foldmethod=indent<CR>
 map <leader>fm :se foldmethod=marker<CR>
 
-" For ctrlp and history n stuff
-cmap <c-h> <left>
-cmap <c-j> <down>
-cmap <c-k> <up>
-cmap <c-l> <right>
-imap <c-h> <left>
-imap <c-j> <down>
-imap <c-k> <up>
-imap <c-l> <right>
 
 " grep
 map <leader>gr :!grep --color=auto -rnI '' .<left><left><left>
