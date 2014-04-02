@@ -209,11 +209,17 @@ let OmniCpp_DefaultNamespaces   = ["std", "_GLIBCXX_STD"]
 au CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
 
  " Airline
-let g:airline#extensions#syntastic#enabled = 0
+let g:airline#extensions#syntastic#enabled = 1
 let g:airline#extensions#whitespace#enabled = 1
 " let g:airline_theme='tomorrow'
 let g:airline_theme='wombat'
-let g:airline#extensions#whitespace#checks = []
+let g:airline#extensions#whitespace#checks = ['trailing']
+
+" if you want to use overlay feature
+let g:choosewin_overlay_enable          = 1
+
+" overlay font broke on mutibyte buffer?
+let g:choosewin_overlay_clear_multibyte = 1
 
 " }}}
 " {{{ Bottom things
