@@ -84,8 +84,11 @@ let addons += ['github:tpope/vim-commentary']
 let addons += ['github:scrooloose/syntastic']
 
 " Autocompletion
-" let addons += ['github:vim-scripts/ActionScript-3-Omnicomplete']
+let addons += ['github:vim-scripts/ActionScript-3-Omnicomplete']
 " let addons += ['github:vim-scripts/AutoComplPop']
+
+" choose windows
+let addons += ['github:t9md/vim-choosewin']
 
 "
 let addons += ['github:tpope/vim-surround']
@@ -176,7 +179,10 @@ map <leader>ee :Errors<cr>
 map <leader>ys :YRShow<cr>
 
 " Git diff
-map <leader>gd Gdiff<cr>
+map <leader>gd :Gdiff<cr>
+
+" Choosewin
+map <leader>ch :ChooseWin<CR>
 
 " Colorscheme
 " set t_Co=256
@@ -187,21 +193,21 @@ map <leader>gd Gdiff<cr>
 colorscheme jellybeans
 
 " Where the tags files are present
-set tags+=~/k/tags,
+" set tags+=~/k/tags,
 
 " " OmniCppComplete
-" let OmniCpp_NamespaceSearch = 1
-" let OmniCpp_GlobalScopeSearch = 1
-" let OmniCpp_ShowAccess = 1
-" let OmniCpp_ShowPrototypeInAbbr = 1 " show function parameters
-" let OmniCpp_MayCompleteDot = 1      " autocomplete after .
-" let OmniCpp_MayCompleteArrow = 1    " autocomplete after ->
-" let OmniCpp_MayCompleteScope = 1    " autocomplete after ::
-" let OmniCpp_DefaultNamespaces = ["std", "_GLIBCXX_STD"]
-" " automatically open and close the popup menu / preview window
-" au CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
+let OmniCpp_NamespaceSearch = 1
+let OmniCpp_GlobalScopeSearch = 1
+let OmniCpp_ShowAccess = 1
+let OmniCpp_ShowPrototypeInAbbr = 1 " show function parameters
+let OmniCpp_MayCompleteDot = 1      " autocomplete after .
+let OmniCpp_MayCompleteArrow = 1    " autocomplete after ->
+let OmniCpp_MayCompleteScope = 1    " autocomplete after ::
+let OmniCpp_DefaultNamespaces = ["std", "_GLIBCXX_STD"]
+" automatically open and close the popup menu / preview window
+au CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
 
-" Airline
+ " Airline
 let g:airline#extensions#syntastic#enabled = 0
 let g:airline#extensions#whitespace#enabled = 1
 " let g:airline_theme='tomorrow'
@@ -279,7 +285,7 @@ set cinoptions=>s,e0,n0,f0,{0,}0,^0,:s,=s,ps,t0,(0,u0,)20,*80,g0
 autocmd FileType * setlocal fo-=c fo-=r fo-=o
 
 " Completion options
-set complete=t,k,.,w,b,u,i
+set complete=.,w,b,u,U,k,kspell,i,t
 
 " Working backspace
 set backspace=indent,eol,start
@@ -459,7 +465,7 @@ hi cFormat ctermbg=240
 " Gold
 map ; :
 
-" Use capslock too sir
+" I use capslock too sir
 imap jk <esc>
 
 " Visual studio mode with vsvim
@@ -519,7 +525,7 @@ map <C-h> <C-W>h
 map <C-l> <C-W>l
 
 " Execute current file
-map <leader>ef :!clear<cr>:!%:p<cr>
+map <leader>mf :!clear<cr>:!%:p<cr>
 
 " Execute current file | less
 " map <leader>el :!clear<cr>:!%p<cr>
@@ -531,7 +537,6 @@ map <Leader>mv :call RenameFile()<cr>
 map <leader>cd :cd %:p:h<cr>:pwd<cr>
 
 " Visual mode pressing * or # searches for the current selection
-" " Super useful! From an idea by Michael Naumann
 vmap <silent> * :call VisualSelection('f')<cr>
 vmap <silent> # :call VisualSelection('b')<cr>
 
@@ -544,10 +549,10 @@ map <leader>pp :setlocal paste!<cr>
 " nmap <C-W><C-F> :call GotoFile("new")<cr>
 
 " Arduino
-map <leader>ia :!sudo ino build && sudo ino upload && sudo ino serial<cr>
-map <leader>iu :!sudo ino build && sudo ino upload<cr>
-map <leader>is :!sudo ino serial<cr>
-map <leader>ib :!sudo ino build<cr>
+map <leader>mia :!sudo ino build && sudo ino upload && sudo ino serial<cr>
+map <leader>miu :!sudo ino build && sudo ino upload<cr>
+map <leader>mis :!sudo ino serial<cr>
+map <leader>mib :!sudo ino build<cr>
 
 " Use :W! to write to a file using sudo if you forgot to 'sudo vim file'
 cmap W! %!sudo tee > /dev/null %
@@ -562,7 +567,7 @@ map <leader>v ^vg_"
 map <leader>ev <C-w><C-v><C-l>:e $MYVIMRC<cr>
 
 " Select (linewise) the text you just pasted (handy for modifying indentation)
-map <leader>V V`]
+map <leader>v v`]
 
 " Reload file
 map <leader>lf :edit!<cr>
@@ -573,11 +578,11 @@ imap <C-k> <up>
 imap <C-j> <down>
 
 " don't
-" map <up> <nop>
-" map <down> <nop>
+" map <up>    <nop>
+" map <down>  <nop>
 " map <right> <nop>
-" map <left> <nop>
-" map <tab> <nop>
+" map <left>  <nop>
+" map <tab>   <nop>
 
 " Erase and paste in visual mode
 vmap p "_dP
@@ -585,6 +590,7 @@ vmap p "_dP
 
 " Open CrtlP in new vsplit
 map <leader>sp :vs<CR>:CtrlP<CR>
+map <leader>tp :tabnew<CR>:CtrlP<CR>
 
 " Idea !
 map <CR> <C-d>
