@@ -209,11 +209,11 @@ let OmniCpp_DefaultNamespaces   = ["std", "_GLIBCXX_STD"]
 au CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
 
  " Airline
-let g:airline#extensions#syntastic#enabled = 1
-let g:airline#extensions#whitespace#enabled = 1
+let g:airline#extensions#whitespace#checks = []
+let g:airline#extensions#syntastic#enabled = 0
+let g:airline#extensions#whitespace#enabled = 0
 " let g:airline_theme='tomorrow'
 let g:airline_theme='wombat'
-let g:airline#extensions#whitespace#checks = ['trailing']
 
 " if you want to use overlay feature
 let g:choosewin_overlay_enable          = 1
@@ -378,12 +378,12 @@ autocmd BufReadPost *
 
 " Keep undo history after closing vim/buffer
 try
-    if windows
-        set undodir=~/_vim/tmp/undodir
-    else
-        set undodir=~/.vim/tmp/undodir
-    endif
-    set undofile
+  set undofile
+  if windows
+    set undodir=$HOME/_vim/tmp/undo
+  else
+    set undodir=$HOME/.vim/tmo/undo
+  endif
 catch
 endtry
 

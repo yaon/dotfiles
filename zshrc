@@ -167,7 +167,7 @@ alias -g NF='*(.om[1])' # newest file FIXME: allways .histfile ...
 alias lsL='ls -hlS **/*(.Lm+2)  | less' # list largest files  largest first  *N*
 alias -g G="| grep" #fuck this
 alias -g L="| less" #and that (i still like you two)
-gr() {grep -rnI $1 .}
+gr() {grep -rnI $1 --exclude=tags .}
 
 alias gls='git log --stat'
 alias glr='git log --raw'
@@ -191,8 +191,8 @@ function sagi { sudo apt-get -y install $1 } #1
 alias kj='killall java'
 alias goo='chromium-browser &'
 alias kgs='javaws http://files.gokgs.com/javaBin/cgoban.jnlp'
-alias zr='vim ~/.zshrc'
-alias vr='vim ~/.vimrc'
+alias zr='vim ~/tools/zshrc'
+alias vr='vim ~/tools/vimrc'
 alias MINE="sudo chown -R $USER.$USER" #1 too
 alias pig='ping google.com'
 manopt(){ man $1 |sed 's/.\x08//g'|sed -n "/^\s\+-\+$2\b/,/^\s*$/p"|sed '$d;';}
@@ -208,6 +208,7 @@ alias st='git status | head -n 25'
 alias mh='make -j4 2> /tmp/mh; cat /tmp/mh | head -n 25'
 
 ## advanced syntax correction
+alias mec='make'
 alias gf='fg'
 alias sv='sudo vim'
 alias v='/usr/local/bin/vim'
@@ -274,7 +275,6 @@ alias shit='ls -shit'
 alias tmux="TERM=screen-256color-bce tmux"
 function ifd { sudo ifdown $1 && sudo ifup $1 }
 alias interfaces='sudo vim /etc/network/interfaces'
-
 
 # }}}
 # {{{ no scripts aloud
