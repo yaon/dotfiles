@@ -573,7 +573,7 @@ map <leader>v ^vg_"
 map <leader>ev <C-w><C-v><C-l>:e $MYVIMRC<cr>
 
 " Select (linewise) the text you just pasted (handy for modifying indentation)
-map <leader>v v`]
+map <leader>V v`]
 
 " Reload file
 map <leader>lf :edit!<cr>
@@ -604,6 +604,7 @@ map <leader>fm :se foldmethod=marker<CR>
 
 " grep
 map <leader>gr :!grep --color=auto -rnI '' .<left><left><left>
+map <leader>ag :!ag '' .<left><left><left>
 
 " }}}
 " {{{ File types
