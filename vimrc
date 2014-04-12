@@ -20,6 +20,18 @@ set autowrite
 set nobackup
 set noswapfile
 
+" Keep undo history after closing vim/buffer
+try
+  if windows
+    set undodir=$HOME/_vim/tmp/undo
+  else
+    set undodir=$HOME/.vim/tmp/undo
+  endif
+  set undofile
+catch
+endtry
+
+
 " Remember info about open buffers on close
 set viminfo^=%
 
@@ -63,7 +75,7 @@ endif
 set nocompatible | filetype indent plugin on | syn on
 
 if windows
-  set rtp+=~/vimfiles/vad
+  set rtp+=~/_vim/vad
 else
   set rtp+=~/.vim/vad
 endif
@@ -375,17 +387,6 @@ autocmd BufReadPost *
     \ if line("'\"") > 0 && line("'\"") <= line("$") |
     \   exe "normal! g`\"" |
     \ endif
-
-" Keep undo history after closing vim/buffer
-try
-  set undofile
-  if windows
-    set undodir=$HOME/_vim/tmp/undo
-  else
-    set undodir=$HOME/.vim/tmo/undo
-  endif
-catch
-endtry
 
 function! RenameFile()
     let old_name = expand('%')

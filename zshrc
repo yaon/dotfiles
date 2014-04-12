@@ -1,10 +1,10 @@
 # {{{ Kaneton exports
 # export KANETON_USER="group30"
-export KANETON_USER="my_test"
-export KANETON_HOST="linux/ia32"
-export KANETON_PLATFORM="ibm-pc"
-export KANETON_ARCHITECTURE="ia32/educational"
-export KANETON_PYTHON="/usr/bin/python"
+# export KANETON_USER="my_test"
+# export KANETON_HOST="linux/ia32"
+# export KANETON_PLATFORM="ibm-pc"
+# export KANETON_ARCHITECTURE="ia32/educational"
+# export KANETON_PYTHON="/usr/bin/python"
 # }}}
 # Options, exports and stuff {{{
 
@@ -275,6 +275,8 @@ alias shit='ls -shit'
 alias tmux="TERM=screen-256color-bce tmux"
 function ifd { sudo ifdown $1 && sudo ifup $1 }
 alias interfaces='sudo vim /etc/network/interfaces'
+alias sl='ls'
+add_alias() { echo "alias $1='$2'" >> ~/.zshrc }
 
 # }}}
 # {{{ no scripts aloud
@@ -520,8 +522,6 @@ function kcc
   qemu-system-i386 -fda bootsect
 } # target remote : 1234, add-symbol-file ex.0 0x7c00, b _start c layout source 
 
-alias sl='ls'
-add_alias() { echo "alias $1='$2'" >> ~/.zshrc }
 alias pewad='pwd'
 alias kmake='cd ~/k && make && make build && make install'
 alias ktest='KANETON_USER=my_test && cd ~/k && make && make build && \
