@@ -264,7 +264,7 @@ alias suj='evince ~/dev/suj.pdf &'
 alias sli='evince ~/dev/sli.pdf &'
 alias -g LOCPI='pi@192.168.0.46'
 alias pissh='ssh -p 22233 pi@93.19.13.24'
-alias euler='vim ~/euler/euler.py'
+alias euler='vim ~/proj/euler/euler.py'
 
 # python
 alias py='python3.2'

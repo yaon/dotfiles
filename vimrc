@@ -115,7 +115,7 @@ let addons += ['github:vim-scripts/YankRing.vim']
 let addons += ['github:tpope/vim-endwise']
 
 " End {("', annoying
-" let addons += ['github:kana/vim-smartinput']
+let addons += ['github:kana/vim-smartinput']
 
 " Allign stuff
 let addons += ['github:godlygeek/tabular']
@@ -127,6 +127,9 @@ let addons += ['github:tpope/vim-repeat']
 let addons += ['github:nanotech/jellybeans.vim']
 let addons += ['github:altercation/vim-colors-solarized']
 
+" Added, modified and removed lines
+let addons += ['github:mhinz/vim-signify']
+
 " Status bar
 let addons += ['github:bling/vim-airline']
 " let addons += ['github:Lokaltog/vim-powerline']
@@ -137,10 +140,11 @@ let addons += ['github:tpope/vim-fugitive']
 " Vimdiff on directories
 " let addons += ['github:vim-scripts/DirDiff.vim']
 
-" Syntax stuff
+" Syntax
 let addons += ['github:hynek/vim-python-pep8-indent']
 let addons += ['github:hdima/python-syntax']
 let addons += ['github:vim-scripts/armasm']
+let addons += ['github:wting/rust.vim']
 
 call vam#ActivateAddons(addons, {'auto_install' : 1})
 
@@ -513,6 +517,7 @@ map <leader>nh :nohlsearch<cr>
 " Dompter le tigre
 map <leader>ms :silent! :make -j4 \| :redraw! \| :botright :cw<cr>
 map <leader>mk :make<cr>
+map <leader>me :make exe<cr>
 
 " Clean dirty disgusting pig stuff
 map <leader>ric :retab<cr>gg=G<cr>:%s/[\r \t]\+$//<cr>
@@ -626,5 +631,6 @@ au Filetype python iabbr elif elif:
 " start a a euler problem plugins kills Vimgolf... require commenter thingie
 
 nmap <leader>Sne "ddiw:e ~/euler/problems.txt<cr>/Problem <c-r>"$<cr>V/Problem<cr>5ky:bp<cr>PV`]gc`]ji<cr>def p<esc>"dpa():<cr>ret = 0<cr>return ret<cr># <esc>a}<esc>..<esc>kO<esc>?Problem<cr>$a {{<del><del>{<del><esc>/ret = 0<cr>j<leader>nh
+nmap <leader>PE diwi# {{{ Problem <esc>podef p<esc>p$i()<esc>opass<CR># }}}<esc>k
 
 " }}}
