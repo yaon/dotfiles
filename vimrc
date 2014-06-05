@@ -237,6 +237,8 @@ let g:choosewin_overlay_enable          = 1
 " overlay font broke on mutibyte buffer?
 let g:choosewin_overlay_clear_multibyte = 1
 
+" Use # insted of /**/ for asm commenting
+au Filetype asm set commentstring=#\ %s
 " }}}
 " {{{ Bottom things
 
@@ -339,8 +341,8 @@ set splitbelow
 " }}}
 " {{{ Prettify
 
-" Wrapped lines
-set wrap
+" No wrapped lines ?
+set nowrap
 
 " For wrapped lines
 set showbreak=\
@@ -471,7 +473,7 @@ match PmenuSbar '\s\+$'
 hi cFormat ctermbg=240
 
 "}}}
-" {{{ Map
+"{{{ Map
 
 " Gold
 map ; :
@@ -518,6 +520,11 @@ map <leader>nh :nohlsearch<cr>
 map <leader>ms :silent! :make -j4 \| :redraw! \| :botright :cw<cr>
 map <leader>mk :make<cr>
 map <leader>me :make exe<cr>
+map <leader>mt :make test<cr>
+map <leader>md :make debug<cr>
+
+" Execute current file
+map <leader>mf :!clear<cr>:!%:p<cr>
 
 " Clean dirty disgusting pig stuff
 map <leader>ric :retab<cr>gg=G<cr>:%s/[\r \t]\+$//<cr>
@@ -535,9 +542,6 @@ map <C-j> <C-W>j
 map <C-k> <C-W>k
 map <C-h> <C-W>h
 map <C-l> <C-W>l
-
-" Execute current file
-map <leader>mf :!clear<cr>:!%:p<cr>
 
 " Execute current file | less
 " map <leader>el :!clear<cr>:!%p<cr>
@@ -570,13 +574,14 @@ map <leader>mib :!sudo ino build<cr>
 cmap W! %!sudo tee > /dev/null %
 
 " Source vimrc
-map <leader>so :source $MYVIMRC<cr>
+map <leader>so :source MYVIMRC<cr>
 
 " Select (charwise) the contents of the current line, excluding indentation.
 map <leader>v ^vg_"
 
-" Open .vimrc in a separated split
-map <leader>ev <C-w><C-v><C-l>:e $MYVIMRC<cr>
+" Open .vimrc
+map <leader>ev <C-w><C-v><C-l>:e ~/tools/vimrc<cr>
+map <leader>tv :tabnew ~/tools/vimrc<cr>
 
 " Select (linewise) the text you just pasted (handy for modifying indentation)
 map <leader>V v`]
