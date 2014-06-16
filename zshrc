@@ -157,6 +157,8 @@ alias j='jobs'
 alias rm='rm -i' # dem safety
 alias cb='cd .. && ls'
 alias mvd='mv ~/Downloads/* ./'
+mvw() {sudo mv $1 /media/sf_Jim/share}
+getw() {sudo cp -r /media/sf_Jim/$1 .}
 alias lsn='ls -lt  **/*(.om[1,20])' # list 20 newest files
 alias cpv="rsync -poghb --backup-dir=/tmp/rsync -e /dev/null --progress --" # copy with progress bar
 alias lsh='ls *(.)' # ls hidden files
@@ -277,6 +279,7 @@ function ifd { sudo ifdown $1 && sudo ifup $1 }
 alias interfaces='sudo vim /etc/network/interfaces'
 alias sl='ls'
 add_alias() { echo "alias $1='$2'" >> ~/.zshrc }
+alias gogui='~/sft/gogui-1.4.9/bin/gogui'
 
 # }}}
 # {{{ no scripts aloud

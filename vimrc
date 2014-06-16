@@ -22,12 +22,12 @@ set noswapfile
 
 " Keep undo history after closing vim/buffer
 try
+  set undofile
   if windows
     set undodir=$HOME/_vim/tmp/undo
   else
     set undodir=$HOME/.vim/tmp/undo
   endif
-  set undofile
 catch
 endtry
 
@@ -518,10 +518,10 @@ map <leader>nh :nohlsearch<cr>
 
 " Dompter le tigre
 map <leader>ms :silent! :make -j4 \| :redraw! \| :botright :cw<cr>
-map <leader>mk :make<cr>
-map <leader>me :make exe<cr>
-map <leader>mt :make test<cr>
-map <leader>md :make debug<cr>
+map <leader>mk :!make<cr>
+map <leader>me :!make exe<cr>
+map <leader>mt :!make test<cr>
+map <leader>md :!make debug<cr>
 
 " Execute current file
 map <leader>mf :!clear<cr>:!%:p<cr>
@@ -574,7 +574,7 @@ map <leader>mib :!sudo ino build<cr>
 cmap W! %!sudo tee > /dev/null %
 
 " Source vimrc
-map <leader>so :source MYVIMRC<cr>
+map <leader>so :source $MYVIMRC<cr>
 
 " Select (charwise) the contents of the current line, excluding indentation.
 map <leader>v ^vg_"
