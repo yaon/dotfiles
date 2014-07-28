@@ -115,7 +115,7 @@ let addons += ['github:vim-scripts/YankRing.vim']
 let addons += ['github:tpope/vim-endwise']
 
 " End {("', annoying
-let addons += ['github:kana/vim-smartinput']
+" let addons += ['github:kana/vim-smartinput']
 
 " Allign stuff
 let addons += ['github:godlygeek/tabular']
@@ -166,6 +166,7 @@ let g:syntastic_python_python_exe = 'python3'
 let g:syntastic_python_checkers = []
 let g:syntastic_c_include_dirs = ['/home/yaon/k/kaneton/include']
 let g:syntastic_c_check_header = 1
+let g:syntastic_c_no_default_include_dirs = 1
 " let g:syntastic_warning_symbol -= '-Wint-to-pointer-cast'
 
 let python_highlight_all = 1
@@ -518,7 +519,7 @@ map <leader>nh :nohlsearch<cr>
 
 " Dompter le tigre
 map <leader>ms :silent! :make -j4 \| :redraw! \| :botright :cw<cr>
-map <leader>mk :!make<cr>
+map <leader>mk :!clear && make<cr>
 map <leader>me :!make exe<cr>
 map <leader>mt :!make test<cr>
 map <leader>md :!make debug<cr>
@@ -616,6 +617,9 @@ map <leader>fm :se foldmethod=marker<CR>
 " grep
 map <leader>gr :!grep --color=auto -rnI '' .<left><left><left>
 map <leader>ag :!ag '' .<left><left><left>
+
+" indent
+map <leader>= mj=i{`j
 
 " }}}
 " {{{ File types
