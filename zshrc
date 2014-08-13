@@ -281,6 +281,7 @@ alias sl='ls'
 add_alias() { echo "alias $1='$2'" >> ~/.zshrc }
 alias gogui='~/sft/gogui-1.4.9/bin/gogui'
 
+alias WILL_LE_RELOU='git fetch && g checkout -B master origin/master'
 # }}}
 # {{{ no scripts aloud
 # {{{ ttv
@@ -518,18 +519,23 @@ function whatdo
 # }}}
 # }}}
 # {{{ k <3
-function kcc
-{
-  gcc -c $1 -o bootsect.o &&
-  ld bootsect.o -o bootsect --oformat binary -Ttext 0x7c00 &&
-  qemu-system-i386 -fda bootsect
-} # target remote : 1234, add-symbol-file ex.0 0x7c00, b _start c layout source 
+# function kcc
+# {
+#   gcc -c $1 -o bootsect.o &&
+#   ld bootsect.o -o bootsect --oformat binary -Ttext 0x7c00 &&
+#   qemu-system-i386 -fda bootsect
+# } # target remote : 1234, add-symbol-file ex.0 0x7c00, b _start c layout source 
 
-alias pewad='pwd'
-alias kmake='cd ~/k && make && make build && make install'
-alias ktest='KANETON_USER=my_test && cd ~/k && make && make build && \
-make install && cd - && qemu -fda \
-/home/yaon/k/environment/profile/user/my_test/my_test.img'
-alias kqdb='qemu-system-i386 -fda /home/yaon/k/environment/profile/user/my_test/my_test.img -s -S &'
-alias kgdb='gdb /home/yaon/k/kaneton/kaneton -tui' #target remote :1234
+# alias pewad='pwd'
+# alias kmake='cd ~/k && make && make build && make install'
+# alias ktest='KANETON_USER=my_test && cd ~/k && make && make build && \
+# make install && cd - && qemu -fda \
+# /home/yaon/k/environment/profile/user/my_test/my_test.img'
+# alias kqdb='qemu-system-i386 -fda /home/yaon/k/environment/profile/user/my_test/my_test.img -s -S &'
+# alias kgdb='gdb /home/yaon/k/kaneton/kaneton -tui' #target remote :1234
+# }}}
+# {{{ gyro
+source /opt/clanton-tiny/1.4.2/environment-setup-i586-poky-linux-uclibc
+alias sshg='ssh root@192.168.112.112'
+scpg() {scp $1 root@192.168.112.112:}
 # }}}

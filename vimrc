@@ -21,15 +21,20 @@ set nobackup
 set noswapfile
 
 " Keep undo history after closing vim/buffer
-try
-  set undofile
-  if windows
-    set undodir=$HOME/_vim/tmp/undo
-  else
-    set undodir=$HOME/.vim/tmp/undo
-  endif
-catch
-endtry
+" try
+"   set undofile
+"   set undodir=$HOME/.vim/tmp/undo
+"   " if windows
+"   "   set undodir=$HOME/_vim/tmp/undo
+"   " else
+"   "   set undodir=$HOME/.vim/tmp/undo
+"   " endif
+" catch
+" endtry
+set undodir=~/.vim/undo
+set undofile
+set undolevels=1000 "maximum number of changes that can be undone
+set undoreload=10000 "maximum number lines to save for undo on a buffer reload
 
 
 " Remember info about open buffers on close
@@ -520,9 +525,12 @@ map <leader>nh :nohlsearch<cr>
 " Dompter le tigre
 map <leader>ms :silent! :make -j4 \| :redraw! \| :botright :cw<cr>
 map <leader>mk :!clear && make<cr>
-map <leader>me :!make exe<cr>
-map <leader>mt :!make test<cr>
-map <leader>md :!make debug<cr>
+" map <leader>me :!make exe<cr>
+" map <leader>mt :!make test<cr>
+" map <leader>md :!make debug<cr>
+map <leader>mm :!clear && cd build && make<cr>
+map <leader>md :!clear && cd build && make deploy<cr>
+map <leader>mr :!clear && cd build && make run<cr>
 
 " Execute current file
 map <leader>mf :!clear<cr>:!%:p<cr>
