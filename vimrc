@@ -525,12 +525,11 @@ map <leader>nh :nohlsearch<cr>
 " Dompter le tigre
 map <leader>ms :silent! :make -j4 \| :redraw! \| :botright :cw<cr>
 map <leader>mk :!clear && make<cr>
-" map <leader>me :!make exe<cr>
-" map <leader>mt :!make test<cr>
-" map <leader>md :!make debug<cr>
-map <leader>mm :!clear && cd build && make<cr>
-map <leader>md :!clear && cd build && make deploy<cr>
-map <leader>mr :!clear && cd build && make run<cr>
+map <leader>me :!clear && make exe<cr>
+map <leader>mt :!clear && make test<cr>
+map <leader>mb :!clear && make debug<cr>
+map <leader>md :!clear && make deploy<cr>
+map <leader>mr :!clear && make run<cr>
 
 " Execute current file
 map <leader>mf :!clear<cr>:!%:p<cr>

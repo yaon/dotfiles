@@ -1,4 +1,0 @@
-sudo rmmod kthread2
-sudo insmod kthread2.ko time=5
-tail -f /var/log/messages
-echo 1 > /sys/module/kthread2/parameters/time

@@ -1,11 +1,3 @@
-# {{{ Kaneton exports
-# export KANETON_USER="group30"
-# export KANETON_USER="my_test"
-# export KANETON_HOST="linux/ia32"
-# export KANETON_PLATFORM="ibm-pc"
-# export KANETON_ARCHITECTURE="ia32/educational"
-# export KANETON_PYTHON="/usr/bin/python"
-# }}}
 # Options, exports and stuff {{{
 
 autoload -U colors && colors
@@ -49,6 +41,7 @@ export LESS_TERMCAP_se=$'\E[0m'           # end standout-mode
 export LESS_TERMCAP_so=$'\E[38;5;246m'    # begin standout-mode - info box
 export LESS_TERMCAP_ue=$'\E[0m'           # end underline
 export LESS_TERMCAP_us=$'\E[04;38;5;146m' # begin underline
+export MAKEFLAGS='--no-print-directory'
 
 # because why the fuck not here
 setxkbmap us
@@ -518,7 +511,22 @@ function whatdo
 }
 # }}}
 # }}}
-# {{{ k <3
+# {{{ Sft
+. ~/sft/z/z.sh
+# }}}
+# {{{ gyro
+alias SIGC='source /opt/clanton-tiny/1.4.2/environment-setup-i586-poky-linux-uclibc'
+alias sshg='ssh root@192.168.112.112'
+scpg() {scp $1 root@192.168.112.112:}
+alias -g IG='192.168.112.112'
+# }}}
+# {{{ Kaneton
+# export KANETON_USER="group30"
+# export KANETON_USER="my_test"
+# export KANETON_HOST="linux/ia32"
+# export KANETON_PLATFORM="ibm-pc"
+# export KANETON_ARCHITECTURE="ia32/educational"
+# export KANETON_PYTHON="/usr/bin/python"
 # function kcc
 # {
 #   gcc -c $1 -o bootsect.o &&
@@ -533,9 +541,4 @@ function whatdo
 # /home/yaon/k/environment/profile/user/my_test/my_test.img'
 # alias kqdb='qemu-system-i386 -fda /home/yaon/k/environment/profile/user/my_test/my_test.img -s -S &'
 # alias kgdb='gdb /home/yaon/k/kaneton/kaneton -tui' #target remote :1234
-# }}}
-# {{{ gyro
-source /opt/clanton-tiny/1.4.2/environment-setup-i586-poky-linux-uclibc
-alias sshg='ssh root@192.168.112.112'
-scpg() {scp $1 root@192.168.112.112:}
 # }}}
