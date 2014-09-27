@@ -274,7 +274,7 @@ alias sl='ls'
 add_alias() { echo "alias $1='$2'" >> ~/.zshrc }
 alias gogui='~/sft/gogui-1.4.9/bin/gogui'
 
-alias WILL_LE_RELOU='git fetch && g checkout -B master origin/master'
+alias WILL_LE_RELOU='git fetch origin && g checkout -B origin origin/master'
 # }}}
 # {{{ no scripts aloud
 # {{{ ttv
