@@ -44,7 +44,7 @@ export LESS_TERMCAP_us=$'\E[04;38;5;146m' # begin underline
 export MAKEFLAGS='--no-print-directory'
 
 # because why the fuck not here
-setxkbmap us
+setxkbmap us -variant altgr-intl
 
 # }}}
 # {{{ completion
