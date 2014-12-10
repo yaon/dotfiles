@@ -28,7 +28,7 @@ export PROMPT="$UUUU %(?,%{$fg[green]%}%%%{$reset_color%},%{$fg[red]%}#%{$reset_
 export RPROMPT=''
 export PAGER='less'
 export LESS="-R"
-export PATH="/sbin:$PATH"
+export PATH="/sbin:$PATH:/home/yaon/syndex/syndex-7.0.6"
 export EDITOR='/usr/local/bin/vim'
 export WORDCHARS=''
 export GREP_OPTIONS='--color=auto'
@@ -275,6 +275,8 @@ add_alias() { echo "alias $1='$2'" >> ~/.zshrc }
 alias gogui='~/sft/gogui-1.4.9/bin/gogui'
 
 alias WILL_LE_RELOU='git fetch origin && g checkout -B origin origin/master'
+slack(){curl --data $1 $'https://epita.slack.com/services/hooks/\
+    slackbot?token=7SgojHHw327YWHrUOohG9gCA&channel=%23'$2}
 # }}}
 # {{{ no scripts aloud
 # {{{ ttv

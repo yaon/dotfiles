@@ -49,7 +49,7 @@ set t_vb=
 
 let g:is_posix = 1
 
-" leader on , and space
+" leader on space
 let mapleader = "\<Space>"
 
 " }}}
@@ -144,6 +144,9 @@ let addons += ['github:tpope/vim-fugitive']
 
 " Vimdiff on directories
 " let addons += ['github:vim-scripts/DirDiff.vim']
+
+" Autocomplete
+" let addons += ['github:Shougo/neocomplete.vim']
 
 " Syntax
 let addons += ['github:hynek/vim-python-pep8-indent']
@@ -533,6 +536,8 @@ map <leader>mr :!clear && make run<cr>
 
 " Execute current file
 map <leader>mf :!clear<cr>:!%:p<cr>
+
+map <leader>ma :!clear<cr>:!gnatmake %:p && ./main<cr>
 
 " Clean dirty disgusting pig stuff
 map <leader>ric :retab<cr>gg=G<cr>:%s/[\r \t]\+$//<cr>
