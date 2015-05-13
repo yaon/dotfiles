@@ -87,9 +87,6 @@ endif
 
 let addons = []
 
-" Navigate between files
-let addons += ['github:scrooloose/nerdtree']
-
 " File finder
 let addons += ['github:kien/ctrlp.vim']
 
@@ -102,12 +99,17 @@ let addons += ['github:scrooloose/syntastic']
 
 " Autocompletion
 let addons += ['github:vim-scripts/ActionScript-3-Omnicomplete']
+" let addons += ['github:vim-scripts/Valloric/YouCompleteMe']
 " let addons += ['github:vim-scripts/AutoComplPop']
+" let addons += ['github:Shougo/neocomplete.vim']
 
-" choose windows
+" Navigate between files
+let addons += ['github:scrooloose/nerdtree']
+
+" Choose windows
 let addons += ['github:t9md/vim-choosewin']
 
-"
+" Surround
 let addons += ['github:tpope/vim-surround']
 
 " Press +/- to shrink/expand visual selection
@@ -116,8 +118,12 @@ let addons += ['github:terryma/vim-expand-region']
 " Yank history
 let addons += ['github:vim-scripts/YankRing.vim']
 
-" End certain sutructures automatically
-let addons += ['github:tpope/vim-endwise']
+" End certain sutructures automatically or autocomplete
+" let addons += ['github:tpope/vim-endwise']
+let addons += ['github:Townk/vim-autoclose']
+
+" Some plugins needs that
+let addons += ['github:mattn/webapi-vim']
 
 " End {("', annoying
 " let addons += ['github:kana/vim-smartinput']
@@ -130,10 +136,12 @@ let addons += ['github:tpope/vim-repeat']
 
 " A colorful, dark color scheme for Vim
 let addons += ['github:nanotech/jellybeans.vim']
-let addons += ['github:altercation/vim-colors-solarized']
+" let addons += ['github:altercation/vim-colors-solarized']
+" let addons += ['github:sjl/badwolf']
 
 " Added, modified and removed lines
 let addons += ['github:mhinz/vim-signify']
+let addons += ['github:airblade/vim-gitgutter']
 
 " Status bar
 let addons += ['github:bling/vim-airline']
@@ -142,17 +150,20 @@ let addons += ['github:bling/vim-airline']
 " Git vrapper
 let addons += ['github:tpope/vim-fugitive']
 
+" Gist
+let addons += ['github:mattn/gist-vim']
+
 " Vimdiff on directories
 " let addons += ['github:vim-scripts/DirDiff.vim']
-
-" Autocomplete
-" let addons += ['github:Shougo/neocomplete.vim']
 
 " Syntax
 let addons += ['github:hynek/vim-python-pep8-indent']
 let addons += ['github:hdima/python-syntax']
 let addons += ['github:vim-scripts/armasm']
 let addons += ['github:wting/rust.vim']
+let addons += ['github:pangloss/vim-javascript']
+let addons += ['github:elzr/vim-json']
+let addons += ['github:tpope/vim-markdown']
 
 call vam#ActivateAddons(addons, {'auto_install' : 1})
 
@@ -533,6 +544,7 @@ map <leader>mt :!clear && make test<cr>
 map <leader>mb :!clear && make debug<cr>
 map <leader>md :!clear && make deploy<cr>
 map <leader>mr :!clear && make run<cr>
+map <leader>mw :!clear && make run_wifi<cr>
 
 " Execute current file
 map <leader>mf :!clear<cr>:!%:p<cr>

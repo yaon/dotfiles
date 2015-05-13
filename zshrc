@@ -56,6 +56,7 @@ unsetopt flowcontrol
 setopt auto_menu         # show completion menu on succesive tab press
 setopt complete_in_word
 setopt always_to_end
+unsetopt complete_aliases
 
 zstyle ':completion:*' completer _expand _complete _ignored
 zstyle ':completion:*' list-colors ''
@@ -518,9 +519,15 @@ function whatdo
 # }}}
 # {{{ gyro
 alias SIGC='source /opt/clanton-tiny/1.4.2/environment-setup-i586-poky-linux-uclibc'
-alias sshg='ssh root@192.168.112.112'
+alias sshg='ssh root@192.168.112.113'
 scpg() {scp $1 root@192.168.112.112:}
 alias -g IG='192.168.112.112'
+alias dpl='scp -r ~/gyro/gyro/src/wifi.cc root@192.168.112.113:'
+alias dce='scp -r ~/gyro/gyro/src/wifi.cc root@192.168.112.113: && ssh root@192.168.112.112 "g++ wifi.cc && ./a.out"'
+lg()
+{
+  scp -r ~/gyro/gyro_wifi/src/wifi.cc root@192.168.112.112:gyro_wifi/src && ssh root@192.168.112.112 'make -C gyro_wifi && ./gyro_wifi/wifi'
+}
 # }}}
 # {{{ Kaneton
 # export KANETON_USER="group30"
@@ -544,3 +551,12 @@ alias -g IG='192.168.112.112'
 # alias kqdb='qemu-system-i386 -fda /home/yaon/k/environment/profile/user/my_test/my_test.img -s -S &'
 # alias kgdb='gdb /home/yaon/k/kaneton/kaneton -tui' #target remote :1234
 # }}}
+alias get='curl -i -H "Accept: application/json" -H "Content-Type: application/json" -X GET localhost:8888'
+post() {
+  curl -H "Authorization: GoogleLogin auth=<<YOUR_TOKEN>>" \
+    -X POST \
+    -H "Content-type: application/json" \
+    -d '{"test":"taist"}' \
+    'localhost:8888'
+}
+alias ch='chromium --disable-web-security&'
