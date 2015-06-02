@@ -93,15 +93,30 @@ let addons += ['github:kien/ctrlp.vim']
 " Easy commenting
 let addons += ['github:scrooloose/nerdcommenter']
 let addons += ['github:tpope/vim-commentary']
+" let addons += ['github:vim-scripts/tComment']
 
 " Syntax check on save
 let addons += ['github:scrooloose/syntastic']
+let addons += ['github:walm/jshint.vim']
 
 " Autocompletion
-let addons += ['github:vim-scripts/ActionScript-3-Omnicomplete']
-" let addons += ['github:vim-scripts/Valloric/YouCompleteMe']
+let addons += ['github:vim-scripts/OmniCppComplete']
+" let addons += ['github:vim-scripts/ActionScript-3-Omnicomplete']
+
+" let addons += ['github:vim-scripts/myhere/vim-nodejs-complete']
+" let addons += ['github:vim-scripts/ahayman/vim-nodejs-complete']
+
 " let addons += ['github:vim-scripts/AutoComplPop']
 " let addons += ['github:Shougo/neocomplete.vim']
+
+" let addons += ['github:Valloric/YouCompleteMe']
+" let addons += ['github:marijnh/tern_for_vim']
+
+" Search
+" let addons += ['github:mileszs/ack.vim']
+
+" tagbar
+let addons += ['github:majutsushi/tagbar']
 
 " Navigate between files
 let addons += ['github:scrooloose/nerdtree']
@@ -120,13 +135,11 @@ let addons += ['github:vim-scripts/YankRing.vim']
 
 " End certain sutructures automatically or autocomplete
 " let addons += ['github:tpope/vim-endwise']
-let addons += ['github:Townk/vim-autoclose']
+" let addons += ['github:Townk/vim-autoclose']
+" let addons += ['github:kana/vim-smartinput']
 
 " Some plugins needs that
 let addons += ['github:mattn/webapi-vim']
-
-" End {("', annoying
-" let addons += ['github:kana/vim-smartinput']
 
 " Allign stuff
 let addons += ['github:godlygeek/tabular']
@@ -134,14 +147,26 @@ let addons += ['github:godlygeek/tabular']
 " Make . work for plugin things
 let addons += ['github:tpope/vim-repeat']
 
+" Debug
+" let addons += ['github:sidorares/node-vim-debugger']
+
+" Node tools
+let addons += ['github:moll/vim-node']
+
+" Html thingie
+let addons += ["github:mattn/emmet-vim"]
+
 " A colorful, dark color scheme for Vim
 let addons += ['github:nanotech/jellybeans.vim']
-" let addons += ['github:altercation/vim-colors-solarized']
-" let addons += ['github:sjl/badwolf']
+let addons += ['github:altercation/vim-colors-solarized']
+let addons += ['github:sjl/badwolf']
+let addons += ['github:marcus/vim-mustang']
+let addons += ['github:goatslacker/mango.vim']
+
 
 " Added, modified and removed lines
 let addons += ['github:mhinz/vim-signify']
-let addons += ['github:airblade/vim-gitgutter']
+" let addons += ['github:airblade/vim-gitgutter']
 
 " Status bar
 let addons += ['github:bling/vim-airline']
@@ -154,16 +179,20 @@ let addons += ['github:tpope/vim-fugitive']
 let addons += ['github:mattn/gist-vim']
 
 " Vimdiff on directories
-" let addons += ['github:vim-scripts/DirDiff.vim']
+let addons += ['github:vim-scripts/DirDiff.vim']
 
-" Syntax
+" Syntax/indent/dict
 let addons += ['github:hynek/vim-python-pep8-indent']
 let addons += ['github:hdima/python-syntax']
 let addons += ['github:vim-scripts/armasm']
 let addons += ['github:wting/rust.vim']
-let addons += ['github:pangloss/vim-javascript']
 let addons += ['github:elzr/vim-json']
 let addons += ['github:tpope/vim-markdown']
+let addons += ['github:pangloss/vim-javascript']
+let addons += ['github:jelera/vim-javascript-syntax']
+" let addons += ['github:vim-scripts/JavaScript-Indent']
+let addons += ['github:guileen/vim-node-dict']
+let addons += ['github:othree/html5.vim']
 
 call vam#ActivateAddons(addons, {'auto_install' : 1})
 
@@ -187,6 +216,7 @@ let g:syntastic_c_include_dirs = ['/home/yaon/k/kaneton/include']
 let g:syntastic_c_check_header = 1
 let g:syntastic_c_no_default_include_dirs = 1
 " let g:syntastic_warning_symbol -= '-Wint-to-pointer-cast'
+let g:syntastic_javascript_checkers = ['jshint']
 
 let python_highlight_all = 1
 
@@ -230,6 +260,9 @@ colorscheme jellybeans
 
 " Where the tags files are present
 " set tags+=~/k/tags, fuck this
+
+" Tagbar
+map <leader>ta :TagbarToggle<CR>
 
 " " OmniCppComplete
 let OmniCpp_NamespaceSearch     = 1
@@ -583,6 +616,9 @@ vmap <silent> # :call VisualSelection('b')<cr>
 
 " Toggle paste mode on and off
 map <leader>pp :setlocal paste!<cr>
+
+" Toggle wrap line mode on and off
+map <leader>pw :set wrap!<cr>
 
 " Override vim commands 'gf', '^Wf', '^W^F'
 " nmap gf :call GotoFile("")<cr>

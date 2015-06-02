@@ -559,4 +559,6 @@ post() {
     -d '{"test":"taist"}' \
     'localhost:8888'
 }
-alias ch='chromium --disable-web-security&'
+alias chu='chromium --disable-web-security 2>/dev/null &'
+alias ch='google-chrome --disable-web-security 2>/dev/null &'
+alias ctagsjs='ctags -R --exclude=.git --exclude=node_modules --exclude=lib --exclude=tasks --exclude=bower_components --exclude=test'
