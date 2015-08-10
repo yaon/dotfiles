@@ -264,7 +264,7 @@ alias euler='vim ~/proj/euler/euler.py'
 
 # python
 alias py='python3.2'
-alias tree='tree -I __pycache__'
+alias tree='tree -I node_modules -I bower_components'
 
 #
 alias shit='ls -shit'
@@ -561,4 +561,6 @@ post() {
 }
 alias chu='chromium --disable-web-security 2>/dev/null &'
 alias ch='google-chrome --disable-web-security 2>/dev/null &'
-alias ctagsjs='ctags -R --exclude=.git --exclude=node_modules --exclude=lib --exclude=tasks --exclude=bower_components --exclude=test'
+alias ctagsjs='ctags -R --exclude=node_modules --exclude=lib --exclude=tasks --exclude=bower_components'
+alias dual='xrandr --output VBOX0 --below VBOX1 '
+alias agn='ag -i node_modules -i bower_components -i dist -i coverage -i vendor'

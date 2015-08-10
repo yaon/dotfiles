@@ -110,7 +110,7 @@ let addons += ['github:vim-scripts/OmniCppComplete']
 " let addons += ['github:Shougo/neocomplete.vim']
 
 " let addons += ['github:Valloric/YouCompleteMe']
-" let addons += ['github:marijnh/tern_for_vim']
+
 
 " Search
 " let addons += ['github:mileszs/ack.vim']
@@ -156,12 +156,13 @@ let addons += ['github:moll/vim-node']
 " Html thingie
 let addons += ["github:mattn/emmet-vim"]
 
-" A colorful, dark color scheme for Vim
+" Colorschemes
 let addons += ['github:nanotech/jellybeans.vim']
 let addons += ['github:altercation/vim-colors-solarized']
 let addons += ['github:sjl/badwolf']
 let addons += ['github:marcus/vim-mustang']
 let addons += ['github:goatslacker/mango.vim']
+let addons += ['github:morhetz/gruvbox']
 
 
 " Added, modified and removed lines
@@ -181,7 +182,10 @@ let addons += ['github:mattn/gist-vim']
 " Vimdiff on directories
 let addons += ['github:vim-scripts/DirDiff.vim']
 
-" Syntax/indent/dict
+" Syntax/indent/dict/ctag
+" let addons += ['github:marijnh/tern_for_vim']
+let addons += ['github:kchmck/vim-coffee-script']
+let addons += ['github:slim-template/vim-slim']
 let addons += ['github:hynek/vim-python-pep8-indent']
 let addons += ['github:hdima/python-syntax']
 let addons += ['github:vim-scripts/armasm']
@@ -237,6 +241,11 @@ map <leader>tb :Tabularize /
 " CtrlP
 let g:ctrlp_map = '<c-e>'
 let g:ctrlp_cmd = 'CtrlP'
+let g:ctrlp_custom_ignore = {
+  \ 'dir':  '\v[\/](node_modules|bower_components)$',
+  \ 'file': '\v\.(exe|so|dll)$',
+  \ 'link': 'some_bad_symbolic_links',
+  \ }
 
 " Synstastic errors
 map <leader>ee :Errors<cr>
@@ -256,7 +265,8 @@ map <leader>ch :ChooseWin<CR>
 " set background=dark
 " let g:solarized_termcolors=256
 " colorscheme solarized
-colorscheme jellybeans
+" colorscheme jellybeans
+colorscheme gruvbox
 
 " Where the tags files are present
 " set tags+=~/k/tags, fuck this
@@ -535,16 +545,16 @@ map ; :
 imap jk <esc>
 
 " Visual studio mode with vsvim
-    "behave mswin
+"behave mswin
 
-    " Backspace to delete visual selection
-    vmap <BS> d
+" Backspace to delete visual selection
+vmap <BS> d
 
-    " Getting rid of control commands (not really using UHL anyways)
-    nmap vv <C-V>
-    noremap U <C-R>
-    nmap H <C-D>
-    nmap L <C-U>
+" Getting rid of control commands (not really using UHL anyways)
+nmap vv <C-V>
+noremap U <C-R>
+nmap H <C-D>
+nmap L <C-U>
 
 " Basic stuff
 map <leader>w :w<cr>
@@ -684,22 +694,11 @@ map <leader>= mj=i{`j
 " }}}
 " {{{ File types
 " Python colon
+" au Filetype javascript se sw=4
+" au Filetype html se sw=4
 au Filetype python se sw=4
 au Filetype python iabbr def def:<left>
 au Filetype python iabbr if if:<left>
 au Filetype python iabbr while while:<left>
 au Filetype python iabbr for for:<left>
 au Filetype python iabbr with with:<left>
-au Filetype python iabbr try try:<left>
-au Filetype python iabbr except except:<left>
-au Filetype python iabbr finally finally:<left>
-au Filetype python iabbr else else:
-au Filetype python iabbr elif elif:
-" }}}
-" {{{ Impractical vim
-" start a a euler problem plugins kills Vimgolf... require commenter thingie
-
-nmap <leader>Sne "ddiw:e ~/euler/problems.txt<cr>/Problem <c-r>"$<cr>V/Problem<cr>5ky:bp<cr>PV`]gc`]ji<cr>def p<esc>"dpa():<cr>ret = 0<cr>return ret<cr># <esc>a}<esc>..<esc>kO<esc>?Problem<cr>$a {{<del><del>{<del><esc>/ret = 0<cr>j<leader>nh
-nmap <leader>PE diwi# {{{ Problem <esc>podef p<esc>p$i()<esc>opass<CR># }}}<esc>k
-
-" }}}
