@@ -262,7 +262,7 @@ map <leader>ch :ChooseWin<CR>
 " Colorscheme
 " set t_Co=256
 " syntax enable
-" set background=dark
+set background=dark
 " let g:solarized_termcolors=256
 " colorscheme solarized
 " colorscheme jellybeans
@@ -291,8 +291,8 @@ au CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
 let g:airline#extensions#whitespace#checks = []
 let g:airline#extensions#syntastic#enabled = 0
 let g:airline#extensions#whitespace#enabled = 0
-" let g:airline_theme='tomorrow'
-let g:airline_theme='wombat'
+let g:airline_theme='tomorrow'
+" let g:airline_theme='wombat'
 
 " if you want to use overlay feature
 let g:choosewin_overlay_enable          = 1
