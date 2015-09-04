@@ -113,7 +113,7 @@ let addons += ['github:vim-scripts/OmniCppComplete']
 
 
 " Search
-" let addons += ['github:mileszs/ack.vim']
+let addons += ['github:mileszs/ack.vim']
 
 " tagbar
 let addons += ['github:majutsushi/tagbar']
@@ -197,6 +197,7 @@ let addons += ['github:jelera/vim-javascript-syntax']
 " let addons += ['github:vim-scripts/JavaScript-Indent']
 let addons += ['github:guileen/vim-node-dict']
 let addons += ['github:othree/html5.vim']
+let addons += ['github:mklabs/vim-backbone']
 
 call vam#ActivateAddons(addons, {'auto_install' : 1})
 
@@ -343,7 +344,7 @@ set ignorecase
 " {{{ Edit, motion, indent...
 
 " Indent spaces
-set shiftwidth=2
+set shiftwidth=4
 
 " Number of spaces in a tab
 set tabstop=8
@@ -358,9 +359,9 @@ set smarttab
 set autoindent
 set smartindent
 
-" Break lines before 80th column
-set textwidth=79
-set wrapmargin=0
+" Break lines before 120th column
+set textwidth=119
+set wrapmargin=100
 
 " Insert spaces insted of tabs
 set expandtab
@@ -696,9 +697,12 @@ map <leader>= mj=i{`j
 " Python colon
 " au Filetype javascript se sw=4
 " au Filetype html se sw=4
+au Filetype *.ejs se ft=html
 au Filetype python se sw=4
 au Filetype python iabbr def def:<left>
 au Filetype python iabbr if if:<left>
 au Filetype python iabbr while while:<left>
 au Filetype python iabbr for for:<left>
 au Filetype python iabbr with with:<left>
+ au BufRead,BufNewFile *.ejs set filetype=html
+" }}}

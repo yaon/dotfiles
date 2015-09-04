@@ -562,6 +562,11 @@ post() {
 alias chu='chromium --disable-web-security 2>/dev/null &'
 alias ch='google-chrome --disable-web-security 2>/dev/null &'
 alias ctagsjs='ctags -R --exclude=node_modules --exclude=lib --exclude=tasks --exclude=bower_components'
-alias dual='xrandr --output VBOX0 --below VBOX1 '
+alias dualVB='xrandr --output VBOX0 --below VBOX1 '
+alias dual='xrandr --output LVDS1 --below DP1'
 alias agn='ag --ignore-dir=node_modules --ignore-dir=bower_components --ignore-dir=dist --ignore-dir=coverage --ignore-dir=vendor'
 alias gg='grunt serve'
+alias ar='vim ~/.config/awesome/rc.lua'
+alias CAPS="xmodmap -e 'clear Lock' -e 'keycode 0x42 = Escape'"
+alias l='xtrlock'
+alias wifi-client='wicd-client'
