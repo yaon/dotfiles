@@ -128,7 +128,7 @@ let addons += ['github:t9md/vim-choosewin']
 let addons += ['github:tpope/vim-surround']
 
 " Press +/- to shrink/expand visual selection
-let addons += ['github:terryma/vim-expand-region']
+" let addons += ['github:terryma/vim-expand-region']
 
 " Yank history
 let addons += ['github:vim-scripts/YankRing.vim']
@@ -706,3 +706,5 @@ au Filetype python iabbr for for:<left>
 au Filetype python iabbr with with:<left>
  au BufRead,BufNewFile *.ejs set filetype=html
 " }}}
+
+vmap <leader>ll diconsole.log("<esc>pA", <esc>pA);

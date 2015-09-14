@@ -570,3 +570,6 @@ alias ar='vim ~/.config/awesome/rc.lua'
 alias CAPS="xmodmap -e 'clear Lock' -e 'keycode 0x42 = Escape'"
 alias l='xtrlock'
 alias wifi-client='wicd-client'
+alias music='ncmpcpp'
+alias hibernate='sudo /etc/acpi/hibernate.sh force'
+alias go_to_sleep='sudo /etc/acpi/sleep.sh force'
