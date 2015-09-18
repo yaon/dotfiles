@@ -1,5 +1,5 @@
 " Install :
-" git clone https://github.com/MarcWeber/vim-addon-manager ~/.vim/vad
+" git clone https://github.com/MarcWeber/vim-addon-manager ~/.nvim/vad
 
 " {{{ Vim options
 
@@ -20,18 +20,18 @@ set autowrite
 set nobackup
 set noswapfile
 
-" Keep undo history after closing vim/buffer
+" Keep undo history after closing nvim/buffer
 " try
 "   set undofile
-"   set undodir=$HOME/.vim/tmp/undo
-"   " if windows
-"   "   set undodir=$HOME/_vim/tmp/undo
-"   " else
-"   "   set undodir=$HOME/.vim/tmp/undo
-"   " endif
+"   set undodir=$HOME/.nvim/tmp/undo
+"   if windows
+"     set undodir=$HOME/_nvim/tmp/undo
+"   else
+"     set undodir=$HOME/.nvim/tmp/undo
+"   endif
 " catch
 " endtry
-set undodir=~/.vim/undo
+set undodir=~/.nvim/undo
 set undofile
 set undolevels=1000 "maximum number of changes that can be undone
 set undoreload=10000 "maximum number lines to save for undo on a buffer reload
@@ -80,9 +80,9 @@ endif
 set nocompatible | filetype indent plugin on | syn on
 
 if windows
-  set rtp+=~/_vim/vad
+  set rtp+=~/_nvim/vad
 else
-  set rtp+=~/.vim/vad
+  set rtp+=~/.nvim/vad
 endif
 
 let addons = []
@@ -652,8 +652,8 @@ map <leader>so :source $MYVIMRC<cr>
 map <leader>v ^vg_"
 
 " Open .vimrc
-map <leader>ev <C-w><C-v><C-l>:e ~/tools/vimrc<cr>
-map <leader>tv :tabnew ~/tools/vimrc<cr>
+map <leader>ev <C-w><C-v><C-l>:e ~/tools/nvimrc<cr>
+map <leader>tv :tabnew ~/tools/nvimrc<cr>
 
 " Select (linewise) the text you just pasted (handy for modifying indentation)
 map <leader>V v`]

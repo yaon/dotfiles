@@ -1,0 +1,17 @@
+Host *
+ServerAliveInterval 30
+# ForwardAgent yes
+
+# Github
+
+Host github github.com
+Hostname github.com
+User git
+PreferredAuthentications publickey
+IdentityFile /home/jim/.ssh/github
+
+Host hubipoc p.hubi.org
+Hostname p.hubi.org
+User ubuntu
+PreferredAuthentications publickey
+IdentityFile /home/jim/.ssh/hubipoc_sys
