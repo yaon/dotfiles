@@ -189,7 +189,7 @@ alias kj='killall java'
 alias goo='chromium-browser &'
 alias kgs='javaws http://files.gokgs.com/javaBin/cgoban.jnlp'
 alias zr='nvim ~/tools/zshrc'
-alias vr='nvim ~/tools/nvimrc'
+alias vr='nvim ~/tools/vimrc'
 alias MINE="sudo chown -R $USER.$USER" #1 too
 alias pig='ping google.com'
 manopt(){ man $1 |sed 's/.\x08//g'|sed -n "/^\s\+-\+$2\b/,/^\s*$/p"|sed '$d;';}
@@ -208,17 +208,17 @@ alias mh='make -j4 2> /tmp/mh; cat /tmp/mh | head -n 25'
 alias mec='make'
 alias gf='fg'
 alias sv='sudo nvim'
-alias v='vim'
-alias jim='vim'
-alias bim='vim'
-alias vin='vim'
-alias nano='vim'
-alias pico='vim'
-alias emacs='vim'
-alias gedit='vim'
-alias notepad='vim'
-alias world='vim'
-alias notepad++='vim'
+alias v='nvim'
+alias jim='nvim'
+alias bim='nvim'
+alias vin='nvim'
+alias nano='nvim'
+alias pico='nvim'
+alias emacs='nvim'
+alias gedit='nvim'
+alias notepad='nvim'
+alias world='nvim'
+alias notepad++='nvim'
 alias g='git'
 alias rtfm='man'
 alias ..1='cd ..'
@@ -572,6 +572,13 @@ alias CAPS="xmodmap -e 'clear Lock' -e 'keycode 0x42 = Escape'"
 alias l='xtrlock'
 alias wifi-client='wicd-client'
 alias music='ncmpcpp'
-alias hibernate='sudo /etc/acpi/hibernate.sh force'
 alias go_to_sleep='sudo /etc/acpi/sleep.sh force'
-
+applets () {
+    nm-applet &
+    skype &
+    steam &
+}
+alias chd="chromium-browser --disable-web-security &"
+alias hibernate="sudo su -c 'sudo echo -n disk > /sys/power/state'"
+alias gnp='git config --global credential.helper cache && git config --global credential.helper "cache --timeout=360000"'
+alias gyp='git config --global credential.helper cache && git config --global credential.helper "cache --timeout=0"'
