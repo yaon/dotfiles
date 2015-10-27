@@ -698,6 +698,7 @@ map <leader>= mj=i{`j
 " au Filetype javascript se sw=4
 " au Filetype html se sw=4
 au Filetype *.ejs se ft=html
+au Filetype *.json se sw=2
 au Filetype python se sw=4
 au Filetype python iabbr def def:<left>
 au Filetype python iabbr if if:<left>

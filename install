@@ -4,3 +4,5 @@ mkdir -p ~/.vim/tmp/undo
 git clone https://github.com/MarcWeber/vim-addon-manager ~/.vim/vad
 echo 'so $HOME/tools/vimrc' > ~/.vimrc
 echo 'source ~/tools/zshrc' > ~/.zshrc
+echo '[include] \
+    path = /path/to/file' > ~/.gitconfig

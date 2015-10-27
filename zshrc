@@ -99,9 +99,9 @@ cdpath=(.)
 # {{{ Keys
 
 # Edit command line with <c-w>
-autoload -U edit-command-line
-zle -N edit-command-line
-bindkey '\C-w' edit-command-line
+# autoload -U edit-command-line
+# zle -N edit-command-line
+# bindkey '\C-,' edit-command-line
 
 # Move word by word
 bindkey ';5D' backward-word
@@ -189,6 +189,7 @@ alias kj='killall java'
 alias goo='chromium-browser &'
 alias kgs='javaws http://files.gokgs.com/javaBin/cgoban.jnlp'
 alias zr='nvim ~/tools/zshrc'
+alias gr='nvim ~/tools/gitconfig'
 alias vr='nvim ~/tools/vimrc'
 alias MINE="sudo chown -R $USER.$USER" #1 too
 alias pig='ping google.com'
