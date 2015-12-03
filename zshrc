@@ -601,3 +601,4 @@ export PATH=${PATH}:/home/jim/sft/android-sdk-linux/platform-tools
 alias start_pikit='mvn spring-boot:run -Plocal -Dspring.profiles.active=local,nosslchecking -Dspring.config.location=/home/jim/Carrefour-Pikit/pikit-docs/properties/pikit-hub-rest/'
 alias stx='setxkbmap us -variant altgr-intl'
 alias idea='./sft/idea-IC-143.382.35/bin/idea.sh &'
+eval $(thefuck --alias)
