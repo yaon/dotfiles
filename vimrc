@@ -1,5 +1,5 @@
 " Install :
-" git clone https://github.com/MarcWeber/vim-addon-manager ~/.nvim/vad
+" git clone https://github.com/MarcWeber/vim-addon-manager ~/.vim/vad
 
 " {{{ Vim options
 
@@ -20,18 +20,18 @@ set autowrite
 set nobackup
 set noswapfile
 
-" Keep undo history after closing nvim/buffer
+" Keep undo history after closing vim/buffer
 " try
 "   set undofile
-"   set undodir=$HOME/.nvim/tmp/undo
+"   set undodir=$HOME/.vim/tmp/undo
 "   if windows
-"     set undodir=$HOME/_nvim/tmp/undo
+"     set undodir=$HOME/_vim/tmp/undo
 "   else
-"     set undodir=$HOME/.nvim/tmp/undo
+"     set undodir=$HOME/.vim/tmp/undo
 "   endif
 " catch
 " endtry
-set undodir=~/.nvim/undo
+set undodir=~/.vim/undo
 set undofile
 set undolevels=1000 "maximum number of changes that can be undone
 set undoreload=10000 "maximum number lines to save for undo on a buffer reload
@@ -80,9 +80,9 @@ endif
 set nocompatible | filetype indent plugin on | syn on
 
 if windows
-  set rtp+=~/_nvim/vad
+  set rtp+=~/_vim/vad
 else
-  set rtp+=~/.nvim/vad
+  set rtp+=~/.vim/vad
 endif
 
 let addons = []
@@ -96,8 +96,8 @@ let addons += ['github:tpope/vim-commentary']
 " let addons += ['github:vim-scripts/tComment']
 
 " Syntax check on save
-let addons += ['github:scrooloose/syntastic']
-let addons += ['github:walm/jshint.vim']
+" let addons += ['github:scrooloose/syntastic']
+" let addons += ['github:walm/jshint.vim']
 
 " Autocompletion
 let addons += ['github:vim-scripts/OmniCppComplete']
@@ -109,7 +109,7 @@ let addons += ['github:vim-scripts/OmniCppComplete']
 " let addons += ['github:vim-scripts/AutoComplPop']
 " let addons += ['github:Shougo/neocomplete.vim']
 
-" let addons += ['github:Valloric/YouCompleteMe']
+let addons += ['github:Valloric/YouCompleteMe']
 
 
 " Search
@@ -184,8 +184,8 @@ let addons += ['github:vim-scripts/DirDiff.vim']
 
 " Syntax/indent/dict/ctag
 " let addons += ['github:marijnh/tern_for_vim']
-let addons += ['github:kchmck/vim-coffee-script']
-let addons += ['github:slim-template/vim-slim']
+" let addons += ['github:kchmck/vim-coffee-script']
+" let addons += ['github:slim-template/vim-slim']
 let addons += ['github:hynek/vim-python-pep8-indent']
 let addons += ['github:hdima/python-syntax']
 let addons += ['github:vim-scripts/armasm']
@@ -193,12 +193,12 @@ let addons += ['github:wting/rust.vim']
 let addons += ['github:elzr/vim-json']
 let addons += ['github:tpope/vim-markdown']
 let addons += ['github:pangloss/vim-javascript']
-let addons += ['github:jelera/vim-javascript-syntax']
+" let addons += ['github:jelera/vim-javascript-syntax']
 " let addons += ['github:vim-scripts/JavaScript-Indent']
 let addons += ['github:guileen/vim-node-dict']
-let addons += ['github:othree/html5.vim']
-let addons += ['github:mklabs/vim-backbone']
-
+" let addons += ['github:othree/html5.vim']
+" let addons += ['github:mklabs/vim-backbone']
+let addons += ['github:mxw/vim-jsx']
 call vam#ActivateAddons(addons, {'auto_install' : 1})
 
 VAMActivate tlib matchit.zip
@@ -593,6 +593,9 @@ map <leader>mw :!clear && make run_wifi<cr>
 " Execute current file
 map <leader>mf :!clear<cr>:!%:p<cr>
 
+" Node current file
+map <leader>mn :!clear<cr>:!node %:p<cr>
+
 map <leader>ma :!clear<cr>:!gnatmake %:p && ./main<cr>
 
 " Clean dirty disgusting pig stuff
@@ -652,8 +655,8 @@ map <leader>so :source $MYVIMRC<cr>
 map <leader>v ^vg_"
 
 " Open .vimrc
-map <leader>ev <C-w><C-v><C-l>:e ~/tools/nvimrc<cr>
-map <leader>tv :tabnew ~/tools/nvimrc<cr>
+map <leader>ev <C-w><C-v><C-l>:e ~/tools/vimrc<cr>
+map <leader>tv :tabnew ~/tools/vimrc<cr>
 
 " Select (linewise) the text you just pasted (handy for modifying indentation)
 map <leader>V v`]
@@ -705,7 +708,26 @@ au Filetype python iabbr if if:<left>
 au Filetype python iabbr while while:<left>
 au Filetype python iabbr for for:<left>
 au Filetype python iabbr with with:<left>
- au BufRead,BufNewFile *.ejs set filetype=html
+au BufRead,BufNewFile *.ejs set filetype=html
 " }}}
 
 vmap <leader>ll diconsole.log("<esc>pA", <esc>pA);
+
+map <leader>jmv :JavaRename 
+map <leader>jgs :JavaGetSet<cr>
+map <leader>jg :JavaGet<cr>
+map <leader>js :JavaSet<cr>
+map <leader>jch :JavaCallHierarchy <cr>
+map <leader>jim :JavaImpl<cr>
+map <leader>jin :JavaImport<cr>
+map <leader>js :JavaSearchContext<cr>
+map <leader>je :JavaSearch 
+let g:jsx_ext_required = 0
+let g:EclimCompletionMethod = 'omnifunc'
+
+" pickit
+au Filetype java se sw=8
+au Filetype java se noexpandtab
+au Filetype js se sw=8
+au Filetype js se noexpandtab
+au BufReadPost *.hbs set syntax=html

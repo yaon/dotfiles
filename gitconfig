@@ -18,6 +18,7 @@
     co = checkout
     ci = commit
     st = status
+    br = branch
     tree = log --pretty=oneline --abbrev-commit --graph --decorate
     graph = log --pretty=oneline --abbrev-commit --graph --decorate
     lfiles = log --stat
